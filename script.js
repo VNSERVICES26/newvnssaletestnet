@@ -71,122 +71,45 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Buy VNS
-  document.getElementById("buyButton").addEventListener("click", async () => {
-    try {
-      // 1. Check wallet connection
-      if (!signer) {
-        throw new Error("कृपया पहले अपना वॉलेट कनेक्ट करें");
-      }
-
-      // 2. Get input values
-      const vnsInput = document.getElementById("vnsAmount").value;
-      const usdtInput = document.getElementById("usdtAmount").value;
-
-      // 3. Validate input
-      if (!vnsInput && !usdtInput) {
-        throw new Error("कृपया VNS या USDT की मात्रा दर्ज करें");
-      }
-
-      document.getElementById("statusMsg").innerText = "लेन-देन प्रसंस्करण...";
-
-      // 4. Initialize contracts
-      const presaleContract = new ethers.Contract(contractAddress, vnsPresaleABI, signer);
-      const usdtContract = new ethers.Contract(usdtTokenAddress, usdtABI, signer);
-
-      // 5. Check if presale is paused
-      const isPaused = await presaleContract.isPaused();
-      if (isPaused) {
-        throw new Error("प्रीसेल अभी रोका गया है। कृपया बाद में पुनः प्रयास करें।");
-      }
-
-      if (vnsInput && !usdtInput) {
-        // Buy with VNS amount specified
-        const vnsAmount = ethers.utils.parseUnits(vnsInput, vnsDecimals);
-        
-        // 6. Get min/max limits
-        const [minPurchase, maxPurchase] = await Promise.all([
-          presaleContract.minPurchase(),
-          presaleContract.maxPurchase()
-        ]);
-        
-        // 7. Validate limits
-        if (vnsAmount.lt(minPurchase)) {
-          throw new Error(`न्यूनतम खरीद सीमा: ${ethers.utils.formatUnits(minPurchase, vnsDecimals)} VNS`);
-        }
-        
-        if (vnsAmount.gt(maxPurchase)) {
-          throw new Error(`अधिकतम खरीद सीमा: ${ethers.utils.formatUnits(maxPurchase, vnsDecimals)} VNS`);
-        }
-        
-        // 8. Calculate required USDT (1 VNS = 0.90 USDT)
-        const usdtAmount = vnsAmount.mul(90).div(100);
-        
-        // 9. Check USDT balance
-        const usdtBalance = await usdtContract.balanceOf(selectedAccount);
-        if (usdtBalance.lt(usdtAmount)) {
-          throw new Error(`आपके पास पर्याप्त USDT नहीं है। आवश्यक: ${ethers.utils.formatUnits(usdtAmount, usdtDecimals)} USDT, उपलब्ध: ${ethers.utils.formatUnits(usdtBalance, usdtDecimals)} USDT`);
-        }
-        
-        // 10. Check and approve allowance
-        const allowance = await usdtContract.allowance(selectedAccount, contractAddress);
-        if (allowance.lt(usdtAmount)) {
-          document.getElementById("statusMsg").innerText = "USDT अनुमति दी जा रही है...";
-          const approveTx = await usdtContract.approve(contractAddress, usdtAmount);
-          await approveTx.wait();
-          document.getElementById("statusMsg").innerText = "USDT अनुमति दी गई! अब खरीदारी हो रही है...";
-        }
-        
-        // 11. Execute purchase
-        document.getElementById("statusMsg").innerText = "VNS खरीदा जा रहा है...";
-        const tx = await presaleContract.buyTokens(vnsAmount);
-        await tx.wait();
-        document.getElementById("statusMsg").innerText = "VNS सफलतापूर्वक खरीदा गया!";
-        alert("VNS सफलतापूर्वक खरीदा गया");
-        
-      } else if (!vnsInput && usdtInput) {
-        // Buy with USDT amount specified
-        const usdtAmount = ethers.utils.parseUnits(usdtInput, usdtDecimals);
-        
-        // 12. Check USDT balance
-        const usdtBalance = await usdtContract.balanceOf(selectedAccount);
-        if (usdtBalance.lt(usdtAmount)) {
-          throw new Error(`आपके पास पर्याप्त USDT नहीं है। आवश्यक: ${ethers.utils.formatUnits(usdtAmount, usdtDecimals)} USDT`);
-        }
-        
-        // 13. Check and approve allowance
-        const allowance = await usdtContract.allowance(selectedAccount, contractAddress);
-        if (allowance.lt(usdtAmount)) {
-          document.getElementById("statusMsg").innerText = "USDT अनुमति दी जा रही है...";
-          const approveTx = await usdtContract.approve(contractAddress, usdtAmount);
-          await approveTx.wait();
-          document.getElementById("statusMsg").innerText = "USDT अनुमति दी गई! अब खरीदारी हो रही है...";
-        }
-        
-        // 14. Execute purchase
-        document.getElementById("statusMsg").innerText = "USDT से VNS खरीदा जा रहा है...";
-        const tx = await presaleContract.buyWithUSDT(usdtAmount);
-        await tx.wait();
-        document.getElementById("statusMsg").innerText = "VNS सफलतापूर्वक खरीदा गया!";
-        alert("VNS सफलतापूर्वक खरीदा गया");
-      }
-      
-    } catch (err) {
-      console.error("Transaction Error:", err);
-      let errorMsg = err.message || "लेन-देन विफल";
-      
-      // Handle specific errors
-      if (err.message.includes("execution reverted")) {
-        errorMsg = "स्मार्ट कॉन्ट्रैक्ट ने लेन-देन को अस्वीकार कर दिया";
-      } else if (err.message.includes("INSUFFICIENT_FUNDS")) {
-        errorMsg = "आपके पास पर्याप्त BNB/Gas fees नहीं हैं";
-      } else if (err.message.includes("User denied transaction")) {
-        errorMsg = "आपने लेन-देन को अस्वीकार कर दिया";
-      }
-      
-      document.getElementById("statusMsg").innerText = errorMsg;
-      alert(errorMsg);
+document.getElementById("buyButton").addEventListener("click", async () => {
+    const vnsInput = document.getElementById("vnsAmount").value;
+    if (!vnsInput || isNaN(vnsInput)) {
+        alert("Please enter a valid VNS amount.");
+        return;
     }
-  });
+
+    try {
+        if (!window.ethereum) {
+            alert("Please connect to MetaMask.");
+            return;
+        }
+
+        const ethersProvider = new ethers.providers.Web3Provider(window.ethereum);
+        await ethersProvider.send("eth_requestAccounts", []);
+        const signer = ethersProvider.getSigner();
+        const userAddress = await signer.getAddress();
+
+        const vnsContract = new ethers.Contract(contractAddress, vnsPresaleABI, signer);
+        const usdtContract = new ethers.Contract(usdtTokenAddress, usdtABI, signer);
+
+        const vnsAmount = ethers.utils.parseUnits(vnsInput, vnsDecimals);
+
+        const usdtAmount = await vnsContract.getTokenPrice(vnsAmount);
+
+        const approveTx = await usdtContract.approve(contractAddress, usdtAmount);
+        alert("Please confirm USDT approval in MetaMask.");
+        await approveTx.wait();
+        alert("USDT Approved Successfully.");
+
+        const buyTx = await vnsContract.buyTokens(vnsAmount);
+        alert("Please confirm VNS token purchase in MetaMask.");
+        await buyTx.wait();
+        alert("VNS Tokens purchased successfully.");
+    } catch (error) {
+        console.error("Transaction Error:", error);
+        alert("Transaction failed. See console for details.");
+    }
+});
 
   // Copy VNS Token Address
   document.getElementById("copyBtn").addEventListener("click", () => {
