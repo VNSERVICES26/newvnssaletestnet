@@ -1,44 +1,65 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>VNS Presale DApp</title>
-  <link rel="stylesheet" href="style.css" />
-  <!-- Web3Modal and Ethers.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/web3modal@1.9.12/dist/index.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.7.8/dist/umd/index.min.js"></script>
+  <meta charset="UTF-8">
+  <title>VNS Token Presale</title>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #f8c400;
+      text-align: center;
+      padding: 50px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+    input {
+      width: 200px;
+    }
+    button {
+      background-color: #f8c400;
+      border: none;
+      color: black;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ffdf32;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      margin-bottom: 30px;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <h1>VNS Presale DApp</h1>
-    <p class="subtitle">Welcome to VNS family and change the world</p>
+    <h1>VNS Token Presale</h1>
 
-    <div class="wallet-section">
-      <button id="connectWallet">🔌 Connect Wallet</button>
-      <p id="walletAddress"></p>
-    </div>
+    <button id="connectBtn">🔗 Connect Wallet</button>
+    <p id="wallet">Wallet: Not connected</p>
 
-    <div class="input-section">
-      <input type="number" id="vnsAmount" placeholder="Enter VNS amount" />
-      <p>OR</p>
-      <input type="number" id="usdtAmount" placeholder="Enter USDT amount" />
-    </div>
+    <p id="price">Price: --</p>
+    <p id="available">Available Tokens: --</p>
 
-    <div class="action-buttons">
-      <button id="buyButton">🛒 Buy VNS</button>
-    </div>
+    <hr style="margin: 30px 0;">
 
-    <div class="info-section">
-      <p>Min: 10 VNS | Max: 500 VNS</p>
-      <p>Price: 1 VNS = 0.90 USDT</p>
-      <p><b>VNS Token Address:</b> <span id="vnsAddress">0x76f8F13B04B85443afDE3D29991363BF54b756fD</span> <button id="copyBtn">📋 Copy</button></p>
-    </div>
+    <h3>Buy VNS by Token Amount</h3>
+    <input type="number" id="vnsAmount" placeholder="Enter VNS amount">
+    <button id="buyVNS">Buy VNS Tokens</button>
 
-    <div class="status">
-      <p id="statusMsg"></p>
-    </div>
+    <h3>Buy VNS by USDT</h3>
+    <input type="number" id="usdtAmount" placeholder="Enter USDT amount">
+    <button id="buyUSDT">Buy with USDT</button>
+
+    <p style="margin-top: 40px; font-size: 14px; color: gray;">Make sure you’ve approved USDT first</p>
   </div>
 
   <script src="script.js"></script>
