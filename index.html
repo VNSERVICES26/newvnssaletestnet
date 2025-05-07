@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VNS Presale DApp</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.7.0/dist/ethers.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3modal@1.9.12/dist/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.7.8/dist/umd/index.min.js"></script>
 </head>
 <body>
   <div class="container">
@@ -12,7 +15,8 @@
     <p class="subtitle">Welcome to VNS family and change the world</p>
 
     <div class="wallet-section">
-      <button id="connectWallet">🔌 Connect Wallet</button>
+      <button id="connectWalletBtn">🔌 Connect Wallet</button>
+      <div id="walletStatus"></div>
     </div>
 
     <div class="input-section">
@@ -22,13 +26,16 @@
     </div>
 
     <div class="action-buttons">
-      <button id="buyButton">🛒 Buy VNS</button>
+      <button id="buyBtn">🛒 Buy VNS</button>
     </div>
 
     <div class="info-section">
       <p>Min: 10 VNS | Max: 500 VNS</p>
       <p>Price: 1 VNS = 0.90 USDT</p>
-      <p><b>VNS Token Address:</b> <span id="vnsAddress">0x76f8F13B04B85443afDE3D29991363BF54b756fD</span> <button onclick="copyVNS()">📋 Copy</button></p>
+      <p><b>VNS Token Address:</b> 
+        <span id="vnsAddress">0x76f8F13B04B85443afDE3D29991363BF54b756fD</span> 
+        <button id="copyBtn">📋 Copy</button>
+      </p>
     </div>
 
     <div class="status">
@@ -36,7 +43,6 @@
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
