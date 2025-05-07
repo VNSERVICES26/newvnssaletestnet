@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>VNS Token Presale</title>
   <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
   <style>
@@ -10,7 +10,7 @@
       background-color: #121212;
       color: #f8c400;
       text-align: center;
-      padding: 50px;
+      padding: 40px;
     }
     input, button {
       padding: 10px;
@@ -19,48 +19,37 @@
       border-radius: 5px;
     }
     input {
-      width: 200px;
+      width: 250px;
     }
     button {
       background-color: #f8c400;
       border: none;
-      color: black;
+      color: #000;
       cursor: pointer;
     }
     button:hover {
-      background-color: #ffdf32;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-    }
-    h1 {
-      margin-bottom: 30px;
+      background-color: #ffe066;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>VNS Token Presale</h1>
+  <h1>🚀 VNS Token Presale</h1>
+  <button id="connectBtn">🔗 Connect Wallet</button>
+  <p id="walletAddress">Wallet: Not Connected</p>
 
-    <button id="connectBtn">🔗 Connect Wallet</button>
-    <p id="wallet">Wallet: Not connected</p>
+  <h3>Presale Details</h3>
+  <p id="price">Price: --</p>
+  <p id="available">Available Tokens: --</p>
 
-    <p id="price">Price: --</p>
-    <p id="available">Available Tokens: --</p>
+  <hr>
 
-    <hr style="margin: 30px 0;">
+  <h3>Buy by VNS Amount</h3>
+  <input type="number" id="vnsAmount" placeholder="Enter VNS amount">
+  <button id="buyVNSBtn">Buy VNS</button>
 
-    <h3>Buy VNS by Token Amount</h3>
-    <input type="number" id="vnsAmount" placeholder="Enter VNS amount">
-    <button id="buyVNS">Buy VNS Tokens</button>
-
-    <h3>Buy VNS by USDT</h3>
-    <input type="number" id="usdtAmount" placeholder="Enter USDT amount">
-    <button id="buyUSDT">Buy with USDT</button>
-
-    <p style="margin-top: 40px; font-size: 14px; color: gray;">Make sure you’ve approved USDT first</p>
-  </div>
+  <h3>Buy by USDT</h3>
+  <input type="number" id="usdtAmount" placeholder="Enter USDT amount">
+  <button id="buyUSDTBtn">Buy with USDT</button>
 
   <script src="script.js"></script>
 </body>
