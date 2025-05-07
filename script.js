@@ -30,12 +30,19 @@ const vnsDecimals = 8;
 const usdtDecimals = 18;
 
 // ABIs (Updated)
-const usdtABI = [ {"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"_decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"mint","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"} 
-  // ... (पहले जैसा ही USDT ABI)
+const usdtABI = [
+  {"constant":false,"inputs":[{"name":"spender","type":"address"},{"name":"amount","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},
+  {"constant":true,"inputs":[{"name":"owner","type":"address"},{"name":"spender","type":"address"}],"name":"allowance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},
+  {"constant":true,"inputs":[{"name":"account","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}
 ];
 
-const vnsPresaleABI = [ {"inputs":[{"internalType":"address","name":"_vnsToken","type":"address"},{"internalType":"address","name":"_usdtToken","type":"address"},{"internalType":"address","name":"_sellerWallet","type":"address"},{"internalType":"address","name":"_paymentReceiver","type":"address"},{"internalType":"uint256","name":"_pricePerVNS","type":"uint256"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newMin","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"newMax","type":"uint256"}],"name":"MinMaxUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"oldOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newPrice","type":"uint256"}],"name":"PriceUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"buyer","type":"address"},{"indexed":false,"internalType":"uint256","name":"vnsAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"usdtAmount","type":"uint256"}],"name":"TokensPurchased","type":"event"},{"inputs":[],"name":"CHANGE_DELAY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"vnsAmount","type":"uint256"}],"name":"buyTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"usdtAmount","type":"uint256"}],"name":"buyWithUSDT","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"emergencyWithdrawAll","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"isPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"lastPriceChange","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"maxPurchase","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"minPurchase","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pause","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"paymentReceiver","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pricePerVNS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenAddress","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"recoverERC20","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"sellerWallet","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"newMin","type":"uint256"},{"internalType":"uint256","name":"newMax","type":"uint256"}],"name":"setMinMaxPurchase","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newPrice","type":"uint256"}],"name":"setPrice","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"unpause","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"usdtToken","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"vnsToken","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"} 
-  // ... (पहले जैसा ही Presale ABI)
+const vnsPresaleABI = [
+  {"constant":false,"inputs":[{"name":"vnsAmount","type":"uint256"}],"name":"buyTokens","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},
+  {"constant":false,"inputs":[{"name":"usdtAmount","type":"uint256"}],"name":"buyWithUSDT","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},
+  {"constant":true,"inputs":[],"name":"isPaused","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},
+  {"constant":true,"inputs":[],"name":"minPurchase","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},
+  {"constant":true,"inputs":[],"name":"maxPurchase","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},
+  {"constant":true,"inputs":[],"name":"pricePerVNS","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}
 ];
 
 // Wait for DOM to load
@@ -51,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById("walletAddress").innerText = `कनेक्टेड: ${selectedAccount.slice(0, 6)}...${selectedAccount.slice(-4)}`;
       document.getElementById("statusMsg").innerText = "वॉलेट सफलतापूर्वक कनेक्ट हो गया!";
       
-      // नेटवर्क चेक
+      // Check network
       const network = await ethersProvider.getNetwork();
       if (network.chainId !== 97) {
         alert("कृपया BSC टेस्टनेट (Chain ID: 97) पर स्विच करें");
@@ -66,58 +73,61 @@ document.addEventListener('DOMContentLoaded', function() {
   // Buy VNS
   document.getElementById("buyButton").addEventListener("click", async () => {
     try {
+      // 1. Check wallet connection
       if (!signer) {
-        alert("कृपया पहले अपना वॉलेट कनेक्ट करें");
-        return;
+        throw new Error("कृपया पहले अपना वॉलेट कनेक्ट करें");
       }
 
+      // 2. Get input values
       const vnsInput = document.getElementById("vnsAmount").value;
       const usdtInput = document.getElementById("usdtAmount").value;
 
+      // 3. Validate input
       if (!vnsInput && !usdtInput) {
-        alert("कृपया VNS या USDT की मात्रा दर्ज करें");
-        return;
+        throw new Error("कृपया VNS या USDT की मात्रा दर्ज करें");
       }
 
       document.getElementById("statusMsg").innerText = "लेन-देन प्रसंस्करण...";
 
+      // 4. Initialize contracts
       const presaleContract = new ethers.Contract(contractAddress, vnsPresaleABI, signer);
       const usdtContract = new ethers.Contract(usdtTokenAddress, usdtABI, signer);
 
-      // प्रीसेल पॉज्ड है या नहीं चेक करें
+      // 5. Check if presale is paused
       const isPaused = await presaleContract.isPaused();
       if (isPaused) {
-        alert("प्रीसेल अभी रोका गया है। कृपया बाद में पुनः प्रयास करें।");
-        return;
+        throw new Error("प्रीसेल अभी रोका गया है। कृपया बाद में पुनः प्रयास करें।");
       }
 
       if (vnsInput && !usdtInput) {
+        // Buy with VNS amount specified
         const vnsAmount = ethers.utils.parseUnits(vnsInput, vnsDecimals);
         
-        // न्यूनतम/अधिकतम सीमा प्राप्त करें
-        const minPurchase = await presaleContract.minPurchase();
-        const maxPurchase = await presaleContract.maxPurchase();
+        // 6. Get min/max limits
+        const [minPurchase, maxPurchase] = await Promise.all([
+          presaleContract.minPurchase(),
+          presaleContract.maxPurchase()
+        ]);
         
+        // 7. Validate limits
         if (vnsAmount.lt(minPurchase)) {
-          alert(`न्यूनतम खरीद सीमा: ${ethers.utils.formatUnits(minPurchase, vnsDecimals)} VNS`);
-          return;
+          throw new Error(`न्यूनतम खरीद सीमा: ${ethers.utils.formatUnits(minPurchase, vnsDecimals)} VNS`);
         }
         
         if (vnsAmount.gt(maxPurchase)) {
-          alert(`अधिकतम खरीद सीमा: ${ethers.utils.formatUnits(maxPurchase, vnsDecimals)} VNS`);
-          return;
+          throw new Error(`अधिकतम खरीद सीमा: ${ethers.utils.formatUnits(maxPurchase, vnsDecimals)} VNS`);
         }
         
-        const usdtAmount = vnsAmount.mul(90).div(100); // 1 VNS = 0.90 USDT
+        // 8. Calculate required USDT (1 VNS = 0.90 USDT)
+        const usdtAmount = vnsAmount.mul(90).div(100);
         
-        // USDT बैलेंस चेक करें
+        // 9. Check USDT balance
         const usdtBalance = await usdtContract.balanceOf(selectedAccount);
         if (usdtBalance.lt(usdtAmount)) {
-          alert(`आपके पास पर्याप्त USDT नहीं है। आवश्यक: ${ethers.utils.formatUnits(usdtAmount, usdtDecimals)} USDT, उपलब्ध: ${ethers.utils.formatUnits(usdtBalance, usdtDecimals)} USDT`);
-          return;
+          throw new Error(`आपके पास पर्याप्त USDT नहीं है। आवश्यक: ${ethers.utils.formatUnits(usdtAmount, usdtDecimals)} USDT, उपलब्ध: ${ethers.utils.formatUnits(usdtBalance, usdtDecimals)} USDT`);
         }
         
-        // USDT अनुमति (allowance) चेक करें
+        // 10. Check and approve allowance
         const allowance = await usdtContract.allowance(selectedAccount, contractAddress);
         if (allowance.lt(usdtAmount)) {
           document.getElementById("statusMsg").innerText = "USDT अनुमति दी जा रही है...";
@@ -126,22 +136,24 @@ document.addEventListener('DOMContentLoaded', function() {
           document.getElementById("statusMsg").innerText = "USDT अनुमति दी गई! अब खरीदारी हो रही है...";
         }
         
+        // 11. Execute purchase
         document.getElementById("statusMsg").innerText = "VNS खरीदा जा रहा है...";
         const tx = await presaleContract.buyTokens(vnsAmount);
         await tx.wait();
         document.getElementById("statusMsg").innerText = "VNS सफलतापूर्वक खरीदा गया!";
         alert("VNS सफलतापूर्वक खरीदा गया");
+        
       } else if (!vnsInput && usdtInput) {
+        // Buy with USDT amount specified
         const usdtAmount = ethers.utils.parseUnits(usdtInput, usdtDecimals);
         
-        // USDT बैलेंस चेक करें
+        // 12. Check USDT balance
         const usdtBalance = await usdtContract.balanceOf(selectedAccount);
         if (usdtBalance.lt(usdtAmount)) {
-          alert(`आपके पास पर्याप्त USDT नहीं है। आवश्यक: ${ethers.utils.formatUnits(usdtAmount, usdtDecimals)} USDT`);
-          return;
+          throw new Error(`आपके पास पर्याप्त USDT नहीं है। आवश्यक: ${ethers.utils.formatUnits(usdtAmount, usdtDecimals)} USDT`);
         }
         
-        // USDT अनुमति (allowance) चेक करें
+        // 13. Check and approve allowance
         const allowance = await usdtContract.allowance(selectedAccount, contractAddress);
         if (allowance.lt(usdtAmount)) {
           document.getElementById("statusMsg").innerText = "USDT अनुमति दी जा रही है...";
@@ -150,20 +162,25 @@ document.addEventListener('DOMContentLoaded', function() {
           document.getElementById("statusMsg").innerText = "USDT अनुमति दी गई! अब खरीदारी हो रही है...";
         }
         
+        // 14. Execute purchase
         document.getElementById("statusMsg").innerText = "USDT से VNS खरीदा जा रहा है...";
         const tx = await presaleContract.buyWithUSDT(usdtAmount);
         await tx.wait();
         document.getElementById("statusMsg").innerText = "VNS सफलतापूर्वक खरीदा गया!";
         alert("VNS सफलतापूर्वक खरीदा गया");
       }
-    } catch (err) {
-      console.error("लेन-देन विफल:", err);
-      let errorMsg = "लेन-देन विफल";
       
+    } catch (err) {
+      console.error("Transaction Error:", err);
+      let errorMsg = err.message || "लेन-देन विफल";
+      
+      // Handle specific errors
       if (err.message.includes("execution reverted")) {
-        errorMsg = "स्मार्ट कॉन्ट्रैक्ट ने लेन-देन को अस्वीकार कर दिया। संभावित कारण: अपर्याप्त शेष, अनुमति नहीं, या सीमा से अधिक";
+        errorMsg = "स्मार्ट कॉन्ट्रैक्ट ने लेन-देन को अस्वीकार कर दिया";
       } else if (err.message.includes("INSUFFICIENT_FUNDS")) {
         errorMsg = "आपके पास पर्याप्त BNB/Gas fees नहीं हैं";
+      } else if (err.message.includes("User denied transaction")) {
+        errorMsg = "आपने लेन-देन को अस्वीकार कर दिया";
       }
       
       document.getElementById("statusMsg").innerText = errorMsg;
@@ -180,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("statusMsg").innerText = "";
       }, 2000);
     }).catch(err => {
-      console.error("कॉपी विफल:", err);
+      console.error("Copy Failed:", err);
     });
   });
 });
