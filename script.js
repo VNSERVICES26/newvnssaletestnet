@@ -71,16 +71,19 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Buy VNS
+// Buy VNS
 document.getElementById("buyButton").addEventListener("click", async () => {
     const vnsInput = document.getElementById("vnsAmount").value;
+
     if (!vnsInput || isNaN(vnsInput)) {
-        alert("Please enter a valid VNS amount.");
+        alert("कृपया मान्य VNS राशि दर्ज करें।");
         return;
     }
 
     try {
+        // Wallet check
         if (!window.ethereum) {
-            alert("Please connect to MetaMask.");
+            alert("कृपया MetaMask कनेक्ट करें।");
             return;
         }
 
@@ -89,25 +92,73 @@ document.getElementById("buyButton").addEventListener("click", async () => {
         const signer = ethersProvider.getSigner();
         const userAddress = await signer.getAddress();
 
-        const vnsContract = new ethers.Contract(contractAddress, vnsPresaleABI, signer);
+        const presaleContract = new ethers.Contract(contractAddress, vnsPresaleABI, signer);
         const usdtContract = new ethers.Contract(usdtTokenAddress, usdtABI, signer);
 
         const vnsAmount = ethers.utils.parseUnits(vnsInput, vnsDecimals);
 
-        const usdtAmount = await vnsContract.getTokenPrice(vnsAmount);
+        // Check if presale is paused
+        const isPaused = await presaleContract.isPaused();
+        if (isPaused) {
+            throw new Error("प्रीसेल वर्तमान में रोका गया है।");
+        }
 
-        const approveTx = await usdtContract.approve(contractAddress, usdtAmount);
-        alert("Please confirm USDT approval in MetaMask.");
-        await approveTx.wait();
-        alert("USDT Approved Successfully.");
+        // Check min/max limits
+        const [minPurchase, maxPurchase] = await Promise.all([
+            presaleContract.minPurchase(),
+            presaleContract.maxPurchase()
+        ]);
 
-        const buyTx = await vnsContract.buyTokens(vnsAmount);
-        alert("Please confirm VNS token purchase in MetaMask.");
+        if (vnsAmount.lt(minPurchase)) {
+            throw new Error(`न्यूनतम खरीद सीमा: ${ethers.utils.formatUnits(minPurchase, vnsDecimals)} VNS`);
+        }
+        if (vnsAmount.gt(maxPurchase)) {
+            throw new Error(`अधिकतम खरीद सीमा: ${ethers.utils.formatUnits(maxPurchase, vnsDecimals)} VNS`);
+        }
+
+        // Get required USDT for given VNS amount (using pricePerVNS)
+        const pricePerVNS = await presaleContract.pricePerVNS(); // price per VNS in USDT (18 decimals)
+        const usdtAmount = vnsAmount.mul(pricePerVNS).div(ethers.utils.parseUnits("1", vnsDecimals));
+
+        // Check balance
+        const usdtBalance = await usdtContract.balanceOf(userAddress);
+        if (usdtBalance.lt(usdtAmount)) {
+            throw new Error(`पर्याप्त USDT नहीं है। ज़रूरी: ${ethers.utils.formatUnits(usdtAmount, usdtDecimals)} USDT`);
+        }
+
+        // Approve USDT
+        const allowance = await usdtContract.allowance(userAddress, contractAddress);
+        if (allowance.lt(usdtAmount)) {
+            document.getElementById("statusMsg").innerText = "USDT अनुमति दी जा रही है...";
+            const approveTx = await usdtContract.approve(contractAddress, usdtAmount);
+            alert("MetaMask में USDT अनुमति दें।");
+            await approveTx.wait();
+            document.getElementById("statusMsg").innerText = "USDT अनुमति सफल!";
+        }
+
+        // Execute purchase
+        document.getElementById("statusMsg").innerText = "VNS खरीदा जा रहा है...";
+        const buyTx = await presaleContract.buyTokens(vnsAmount);
+        alert("MetaMask में खरीदारी पुष्टि करें।");
         await buyTx.wait();
-        alert("VNS Tokens purchased successfully.");
-    } catch (error) {
-        console.error("Transaction Error:", error);
-        alert("Transaction failed. See console for details.");
+
+        document.getElementById("statusMsg").innerText = "VNS सफलतापूर्वक खरीदा गया!";
+        alert("VNS टोकन खरीदारी सफल रही!");
+
+    } catch (err) {
+        console.error("Transaction Error:", err);
+        let errorMsg = err.message || "लेन-देन विफल";
+
+        if (err.message.includes("execution reverted")) {
+            errorMsg = "स्मार्ट कॉन्ट्रैक्ट ने लेन-देन अस्वीकार किया";
+        } else if (err.message.includes("INSUFFICIENT_FUNDS")) {
+            errorMsg = "पर्याप्त गैस फीस (BNB) नहीं है";
+        } else if (err.message.includes("User denied transaction")) {
+            errorMsg = "आपने लेन-देन अस्वीकार कर दिया";
+        }
+
+        document.getElementById("statusMsg").innerText = errorMsg;
+        alert(errorMsg);
     }
 });
 
