@@ -97,10 +97,9 @@ document.getElementById("buyButton").addEventListener("click", async () => {
             throw new Error("प्रीसेल वर्तमान में रोका गया है।");
         }
 
-        // Check min/max limits
-        const [minPurchase, maxPurchase] = await Promise.all([
+        // Check min limits
+        const [minPurchase] = await Promise.all([
             presaleContract.minPurchase(),
-            presaleContract.maxPurchase()
         ]);
 
         if (vnsAmount.lt(minPurchase)) {
