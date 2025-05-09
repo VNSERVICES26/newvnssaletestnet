@@ -5,19 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VNS Token Presale</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <h1>VNS Token Presale</h1>
-        <div class="form">
-            <label for="usdtAmount">Amount of USDT:</label>
-            <input type="number" id="usdtAmount" placeholder="Enter USDT amount">
-            <button id="buyBtn">Buy VNS Tokens</button>
+        <header>
+            <h1>VNS Token Presale</h1>
+            <button id="connectWallet" class="gold-btn">Connect Wallet</button>
+            <div id="walletAddress" class="wallet-address"></div>
+        </header>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Presale Information</h2>
+            </div>
+            <div class="card-body">
+                <div class="info-row">
+                    <span>VNS Token Address:</span>
+                    <span id="vnsContract">0x...loading</span>
+                    <button id="copyContract" class="black-btn">Copy</button>
+                </div>
+                <div class="info-row">
+                    <span>Current Price:</span>
+                    <span id="currentPrice">0.90</span> USDT per VNS
+                </div>
+                <div class="info-row">
+                    <span>Available Tokens:</span>
+                    <span id="availableTokens">0</span> VNS
+                </div>
+                <div class="info-row">
+                    <span>Minimum Purchase:</span>
+                    <span id="minPurchase">10</span> VNS
+                </div>
+            </div>
         </div>
-        <div id="message"></div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Buy VNS Tokens</h2>
+            </div>
+            <div class="card-body">
+                <div class="input-group">
+                    <label for="vnsAmount">VNS Amount:</label>
+                    <input type="number" id="vnsAmount" min="10" step="1" placeholder="Minimum 10 VNS">
+                </div>
+                <div class="info-row">
+                    <span>USDT Cost:</span>
+                    <span id="usdtCost">0</span> USDT
+                </div>
+                <button id="buyWithVns" class="gold-btn">Buy VNS</button>
+            </div>
+        </div>
+
+        <!-- Transaction Modals -->
+        <div id="approveModal" class="modal">
+            <div class="modal-content">
+                <h3>Approve USDT</h3>
+                <p id="approveMessage">Please approve USDT spending in your wallet...</p>
+                <div class="modal-buttons">
+                    <button id="cancelApprove" class="black-btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="buyModal" class="modal">
+            <div class="modal-content">
+                <h3>Confirm Purchase</h3>
+                <p id="buyMessage">Please confirm the transaction in your wallet...</p>
+                <div class="modal-buttons">
+                    <button id="cancelBuy" class="black-btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="notification" class="notification"></div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/web3@1.6.1/dist/web3.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
