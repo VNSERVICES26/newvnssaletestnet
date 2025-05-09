@@ -1,28 +1,38 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>VNS Token Presale</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VNS Presale</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="container">
+        <h1>VNS Token Presale</h1>
+        
+        <!-- Price Section -->
+        <div class="price-section">
+            <p>Current Price per VNS: <span id="price">Loading...</span> USDT</p>
+        </div>
 
-  <h1>🪙 VNS Token Presale</h1>
+        <!-- Purchase Section -->
+        <div class="purchase-section">
+            <label for="vnsAmount">Amount of VNS to Buy (in tokens):</label>
+            <input type="number" id="vnsAmount" placeholder="Enter VNS Amount">
+            <button onclick="buyTokens()">Buy Tokens</button>
+        </div>
 
-  <button id="connectWallet">🦊 वॉलेट से कनेक्ट करें</button>
-  <div id="walletAddress"></div>
+        <!-- Purchase with USDT Section -->
+        <div class="purchase-section">
+            <label for="usdtAmount">Amount of USDT to Spend:</label>
+            <input type="number" id="usdtAmount" placeholder="Enter USDT Amount">
+            <button onclick="buyWithUSDT()">Buy with USDT</button>
+        </div>
 
-  <br><br>
+        <div id="message"></div>
+    </div>
 
-  <input type="number" id="usdtAmount" placeholder="USDT राशि दर्ज करें">
-  <br>
-  <button id="approveBtn">✅ Approve USDT</button>
-  <br>
-  <button id="buyBtn">💰 VNS टोकन खरीदें</button>
-
-  <div id="status"></div>
-
-  <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
