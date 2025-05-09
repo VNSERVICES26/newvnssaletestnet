@@ -9,7 +9,7 @@ const vnsABI = [{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8
 const config = {
     presaleAddress: "0xCf49a837B3De3C838aA22DBc7Bb5472640F3301a",
     usdtAddress: "0x337610d27c682E347C9cD60BD4b3b107C9d34dDd",
-    vnsAddress: "0x76f8F13B04B85443afDE3D29991363BF54b756fD"
+    vnsAddress: "0xD56b19A7A083E64b3f2E41cDD09BaDF2D168D101"
 };
 
 let web3;
