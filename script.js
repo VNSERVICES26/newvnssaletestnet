@@ -68,8 +68,9 @@ buyBtn.addEventListener('click', async () => {
   try {
     await presaleContract.methods.buyTokens(buyAmount).send({ from: accounts[0] });
     statusDiv.innerText = "🎉 टोकन खरीद सफल रहा! VNS आपके वॉलेट में आ जाएंगे।";
-  } catch (err) {
-    console.error(err);
-    statusDiv.innerText = "❌ टोकन खरीदने में समस्या आई।";
-  }
+  }  catch (err) {
+  console.error("Buy Error:", err);
+  statusDiv.innerText = "❌ टोकन खरीदने में समस्या आई: " + err.message;
+}
+
 });
