@@ -15,6 +15,27 @@
             <div id="walletAddress" class="wallet-address"></div>
         </header>
 
+        <div class="admin-section" id="adminSection">
+            <h2>Admin Functions</h2>
+            <div class="admin-controls">
+                <div class="input-group">
+                    <label>Set New Price (USDT per VNS):</label>
+                    <input type="number" id="newPriceInput" step="0.01" min="0.01" placeholder="0.90">
+                    <button id="updatePriceBtn" class="gold-btn">Update Price</button>
+                </div>
+                <div class="input-group">
+                    <label>Set Payment Receiver:</label>
+                    <input type="text" id="newReceiverInput" placeholder="0x...">
+                    <button id="updateReceiverBtn" class="gold-btn">Update Receiver</button>
+                </div>
+                <div class="input-group">
+                    <label>Set Minimum Purchase (VNS):</label>
+                    <input type="number" id="newMinPurchaseInput" min="10" value="10">
+                    <button id="updateMinPurchaseBtn" class="gold-btn">Update Minimum</button>
+                </div>
+            </div>
+        </div>
+
         <div class="card">
             <div class="card-header">
                 <h2>Presale Information</h2>
@@ -57,7 +78,7 @@
             </div>
         </div>
 
-        <!-- Transaction Modals -->
+        <!-- Modals -->
         <div id="approveModal" class="modal">
             <div class="modal-content">
                 <h3>Approve USDT</h3>
