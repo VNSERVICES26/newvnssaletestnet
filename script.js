@@ -180,63 +180,73 @@ function calculateUsdtCost() {
 // Buy VNS tokens function
 async function buyVnsTokens() {
     if (!accounts || accounts.length === 0) {
-        showNotification("Please connect your wallet first", "error");
+        showNotification("कृपया पहले अपना वॉलेट कनेक्ट करें", "error");
         return;
     }
 
     const vnsAmountInput = document.getElementById('vnsAmount').value;
     if (!vnsAmountInput || isNaN(vnsAmountInput) || parseFloat(vnsAmountInput) <= 0) {
-        showNotification("Please enter a valid VNS amount", "error");
+        showNotification("कृपया सही VNS मात्रा डालें", "error");
         return;
     }
 
     try {
-        // Disable buy button during processing
         document.getElementById('buyWithVns').disabled = true;
-        document.getElementById('buyWithVns').textContent = "Processing...";
+        document.getElementById('buyWithVns').textContent = "प्रोसेसिंग...";
         
-        // Convert VNS amount to wei
+        // VNS मात्रा को सही तरीके से कैलकुलेट करें
         const vnsAmount = web3.utils.toWei(vnsAmountInput, 'ether');
+        const vnsAmountWithDecimals = BigInt(vnsAmount) * (10n ** BigInt(18 - vnsDecimals));
         
-        // Check if presale is paused
+        // कॉन्ट्रैक्ट स्टेटस चेक करें
         const isPaused = await presaleContract.methods.isPaused().call();
         if (isPaused) {
-            showNotification("Presale is currently paused", "error");
-            document.getElementById('buyWithVns').disabled = false;
-            document.getElementById('buyWithVns').textContent = "Buy VNS Tokens";
+            showNotification("प्रीसेल अभी रोका हुआ है", "error");
+            resetBuyButton();
             return;
         }
         
-        // Check minimum purchase
+        // न्यूनतम खरीद मात्रा चेक करें
         const minPurchase = await presaleContract.methods.minPurchase().call();
-        if (BigInt(vnsAmount) < BigInt(minPurchase)) {
-            showNotification(`Minimum purchase is ${formatTokenAmount(minPurchase, vnsDecimals)} VNS`, "error");
-            document.getElementById('buyWithVns').disabled = false;
-            document.getElementById('buyWithVns').textContent = "Buy VNS Tokens";
+        if (vnsAmountWithDecimals < BigInt(minPurchase)) {
+            showNotification(`न्यूनतम खरीद ${formatTokenAmount(minPurchase, vnsDecimals)} VNS है`, "error");
+            resetBuyButton();
             return;
         }
         
-        // Calculate required USDT
+        // आवश्यक USDT की गणना करें
         const pricePerVNS = await presaleContract.methods.pricePerVNS().call();
-        const requiredUsdt = BigInt(pricePerVNS) * BigInt(vnsAmount) / (10n ** BigInt(vnsDecimals));
+        const requiredUsdt = BigInt(pricePerVNS) * vnsAmountWithDecimals / (10n ** BigInt(vnsDecimals));
         
-        // Check USDT allowance
+        // USDT बैलेंस चेक करें
+        const usdtBalance = await usdtContract.methods.balanceOf(accounts[0]).call();
+        if (BigInt(usdtBalance) < requiredUsdt) {
+            showNotification("आपके पास पर्याप्त USDT नहीं है", "error");
+            resetBuyButton();
+            return;
+        }
+        
+        // अनुमति (allowance) चेक करें
         const allowance = await usdtContract.methods.allowance(accounts[0], config.presaleAddress).call();
         
         if (BigInt(allowance) < requiredUsdt) {
-            // Show approval modal
             document.getElementById('approveAmount').textContent = formatTokenAmount(requiredUsdt.toString(), usdtDecimals);
             showModal('approveModal');
+            
+            // बाद में उपयोग के लिए डेटा स्टोर करें
+            window.pendingPurchase = {
+                vnsAmount: vnsAmountInput,
+                vnsAmountWei: vnsAmountWithDecimals.toString(),
+                pricePerVNS: pricePerVNS
+            };
         } else {
-            // Directly show buy modal if already approved
             showBuyModal(vnsAmountInput, pricePerVNS);
         }
     } catch (error) {
-        console.error("Buy error:", error);
-        showNotification("Error processing purchase: " + error.message, "error");
+        console.error("खरीदने में त्रुटि:", error);
+        showNotification("खरीद प्रक्रिया में त्रुटि: " + error.message, "error");
     } finally {
-        document.getElementById('buyWithVns').disabled = false;
-        document.getElementById('buyWithVns').textContent = "Buy VNS Tokens";
+        resetBuyButton();
     }
 }
 
@@ -251,61 +261,78 @@ function showBuyModal(vnsAmountInput, pricePerVNS) {
 // Approve USDT spending
 async function approveUsdt() {
     try {
-        // Disable approve button during processing
         document.getElementById('approveBtn').disabled = true;
-        document.getElementById('approveBtn').textContent = "Approving...";
+        document.getElementById('approveBtn').textContent = "अनुमति दी जा रही है...";
         
-        const vnsAmountInput = document.getElementById('vnsAmount').value;
-        const vnsAmount = web3.utils.toWei(vnsAmountInput, 'ether');
-        const pricePerVNS = await presaleContract.methods.pricePerVNS().call();
-        const requiredUsdt = BigInt(pricePerVNS) * BigInt(vnsAmount) / (10n ** BigInt(vnsDecimals));
+        if (!window.pendingPurchase) {
+            throw new Error("खरीद डेटा नहीं मिला");
+        }
         
-        showNotification("Approving USDT...", "info");
+        const requiredUsdt = BigInt(window.pendingPurchase.pricePerVNS) * 
+                           BigInt(window.pendingPurchase.vnsAmountWei) / 
+                           (10n ** BigInt(vnsDecimals));
         
-        await usdtContract.methods.approve(config.presaleAddress, requiredUsdt.toString())
+        showNotification("USDT अनुमति दी जा रही है...", "info");
+        
+        const receipt = await usdtContract.methods.approve(config.presaleAddress, requiredUsdt.toString())
             .send({ from: accounts[0] });
             
+        if (!receipt.status) {
+            throw new Error("अनुमति लेन-देन विफल");
+        }
+            
         hideModal('approveModal');
-        showNotification("USDT approved successfully", "success");
+        showNotification("USDT अनुमति सफलतापूर्वक दी गई", "success");
         
-        // Show buy modal after approval
-        showBuyModal(vnsAmountInput, pricePerVNS);
+        // अनुमति के बाद खरीदारी जारी रखें
+        showBuyModal(window.pendingPurchase.vnsAmount, window.pendingPurchase.pricePerVNS);
     } catch (error) {
-        console.error("Approval error:", error);
-        showNotification("Approval failed: " + error.message, "error");
+        console.error("अनुमति त्रुटि:", error);
+        showNotification("अनुमति विफल: " + error.message, "error");
     } finally {
         document.getElementById('approveBtn').disabled = false;
-        document.getElementById('approveBtn').textContent = "Approve USDT";
+        document.getElementById('approveBtn').textContent = "USDT अनुमति दें";
     }
 }
 
 // Execute buy transaction
 async function executeBuy() {
     try {
-        // Disable confirm button during processing
         document.getElementById('confirmBuyBtn').disabled = true;
-        document.getElementById('confirmBuyBtn').textContent = "Processing...";
+        document.getElementById('confirmBuyBtn').textContent = "प्रोसेसिंग...";
         
-        const vnsAmountInput = document.getElementById('vnsAmount').value;
-        const vnsAmount = web3.utils.toWei(vnsAmountInput, 'ether');
+        if (!window.pendingPurchase) {
+            throw new Error("खरीद डेटा नहीं मिला");
+        }
         
-        showNotification("Processing purchase transaction...", "info");
+        showNotification("खरीद लेन-देन प्रोसेस हो रहा है...", "info");
         
-        await presaleContract.methods.buyTokens(vnsAmount).send({ from: accounts[0] });
+        const receipt = await presaleContract.methods.buyTokens(window.pendingPurchase.vnsAmountWei)
+            .send({ from: accounts[0] });
+            
+        if (!receipt.status) {
+            throw new Error("लेन-देन वापस लिया गया");
+        }
         
         hideModal('buyModal');
-        showNotification("Tokens purchased successfully!", "success");
+        showNotification("टोकन सफलतापूर्वक खरीदे गए!", "success");
         
-        // Refresh data and clear input
+        // डेटा रिफ्रेश करें और इनपुट साफ करें
         loadContractData();
         document.getElementById('vnsAmount').value = '';
         document.getElementById('usdtCost').textContent = '0.00';
+        delete window.pendingPurchase;
     } catch (error) {
-        console.error("Transaction error:", error);
-        showNotification("Transaction failed: " + error.message, "error");
+        console.error("लेन-देन त्रुटि:", error);
+        
+        if (error.message.includes("revert") || error.receipt?.status === false) {
+            showNotification("लेन-देन विफल: कॉन्ट्रैक्ट ने लेन-देन वापस ले लिया। संभावित कारण: अपर्याप्त कॉन्ट्रैक्ट बैलेंस, अमान्य पैरामीटर, या कॉन्ट्रैक्ट प्रतिबंध।", "error");
+        } else {
+            showNotification("लेन-देन विफल: " + error.message, "error");
+        }
     } finally {
         document.getElementById('confirmBuyBtn').disabled = false;
-        document.getElementById('confirmBuyBtn').textContent = "Confirm Purchase";
+        document.getElementById('confirmBuyBtn').textContent = "खरीद की पुष्टि करें";
     }
 }
 
