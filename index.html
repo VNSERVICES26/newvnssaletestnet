@@ -11,95 +11,81 @@
     <div class="container">
         <header>
             <h1>VNS Token Presale</h1>
-            <button id="connectWallet" class="gold-btn">Connect Wallet</button>
-            <div id="walletAddress" class="wallet-address"></div>
+            <div class="wallet-section">
+                <span id="walletAddress"></span>
+                <button id="connectWallet">Connect Wallet</button>
+            </div>
         </header>
 
-        <div class="admin-section" id="adminSection">
-            <h2>Admin Functions</h2>
-            <div class="admin-controls">
-                <div class="input-group">
-                    <label>Set New Price (USDT per VNS):</label>
-                    <input type="number" id="newPriceInput" step="0.01" min="0.01" placeholder="0.90">
-                    <button id="updatePriceBtn" class="gold-btn">Update Price</button>
-                </div>
-                <div class="input-group">
-                    <label>Set Payment Receiver:</label>
-                    <input type="text" id="newReceiverInput" placeholder="0x...">
-                    <button id="updateReceiverBtn" class="gold-btn">Update Receiver</button>
-                </div>
-                <div class="input-group">
-                    <label>Set Minimum Purchase (VNS):</label>
-                    <input type="number" id="newMinPurchaseInput" min="10" value="10">
-                    <button id="updateMinPurchaseBtn" class="gold-btn">Update Minimum</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <h2>Presale Information</h2>
-            </div>
-            <div class="card-body">
-                <div class="info-row">
-                    <span>VNS Token Address:</span>
-                    <span id="vnsContract">0x...loading</span>
-                    <button id="copyContract" class="black-btn">Copy</button>
-                </div>
-                <div class="info-row">
-                    <span>Current Price:</span>
-                    <span id="currentPrice">0.90</span> USDT per VNS
-                </div>
-                <div class="info-row">
-                    <span>Available Tokens:</span>
-                    <span id="availableTokens">0</span> VNS
-                </div>
-                <div class="info-row">
-                    <span>Minimum Purchase:</span>
-                    <span id="minPurchase">10</span> VNS
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <h2>Buy VNS Tokens</h2>
-            </div>
-            <div class="card-body">
-                <div class="input-group">
-                    <label for="vnsAmount">VNS Amount:</label>
-                    <input type="number" id="vnsAmount" min="10" step="1" placeholder="Minimum 10 VNS">
-                </div>
-                <div class="info-row">
-                    <span>USDT Cost:</span>
-                    <span id="usdtCost">0</span> USDT
-                </div>
-                <button id="buyWithVns" class="gold-btn">Buy VNS</button>
-            </div>
-        </div>
-
-        <!-- Modals -->
-        <div id="approveModal" class="modal">
-            <div class="modal-content">
-                <h3>Approve USDT</h3>
-                <p id="approveMessage">Please approve USDT spending in your wallet...</p>
-                <div class="modal-buttons">
-                    <button id="cancelApprove" class="black-btn">Cancel</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="buyModal" class="modal">
-            <div class="modal-content">
-                <h3>Confirm Purchase</h3>
-                <p id="buyMessage">Please confirm the transaction in your wallet...</p>
-                <div class="modal-buttons">
-                    <button id="cancelBuy" class="black-btn">Cancel</button>
-                </div>
-            </div>
-        </div>
-
         <div id="notification" class="notification"></div>
+
+        <main>
+            <section class="contract-info">
+                <h2>Contract Information</h2>
+                <div class="info-grid">
+                    <div>
+                        <label>Presale Contract:</label>
+                        <span id="vnsContract">0x1d696...451b0</span>
+                        <button id="copyContract">Copy</button>
+                    </div>
+                    <div>
+                        <label>Current Price:</label>
+                        <span id="currentPrice">0.00</span> USDT per VNS
+                    </div>
+                    <div>
+                        <label>Available Tokens:</label>
+                        <span id="availableTokens">0</span> VNS
+                    </div>
+                    <div>
+                        <label>Minimum Purchase:</label>
+                        <span id="minPurchase">0</span> VNS
+                    </div>
+                    <div>
+                        <label>Presale Status:</label>
+                        <span id="contractStatus">Loading...</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="buy-section">
+                <h2>Buy VNS Tokens</h2>
+                <div class="buy-form">
+                    <div class="form-group">
+                        <label for="vnsAmount">VNS Amount:</label>
+                        <input type="number" id="vnsAmount" placeholder="Enter VNS amount">
+                    </div>
+                    <div class="form-group">
+                        <label>USDT Cost:</label>
+                        <span id="usdtCost">0.00</span> USDT
+                    </div>
+                    <button id="buyWithVns" class="gold-button">Buy VNS Tokens</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Approve USDT Modal -->
+    <div id="approveModal" class="modal">
+        <div class="modal-content">
+            <h3>Approve USDT Spending</h3>
+            <p>You need to approve <span id="approveAmount">0</span> USDT for this purchase.</p>
+            <div class="modal-buttons">
+                <button id="cancelApprove">Cancel</button>
+                <button id="approveBtn" class="gold-button">Approve USDT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Purchase Modal -->
+    <div id="buyModal" class="modal">
+        <div class="modal-content">
+            <h3>Confirm Purchase</h3>
+            <p>Are you sure you want to buy <span id="confirmVnsAmount">0</span> VNS for <span id="confirmUsdtAmount">0</span> USDT?</p>
+            <div class="modal-buttons">
+                <button id="cancelBuy">Cancel</button>
+                <button id="confirmBuyBtn" class="gold-button">Confirm Purchase</button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
