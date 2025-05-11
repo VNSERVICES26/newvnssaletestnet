@@ -30,6 +30,8 @@ async function init() {
     setupEventListeners();
 }
 
+// ... [पहले का ABI और कॉन्फिगरेशन कोड वही रहेगा]
+
 async function initWeb3() {
     if (window.ethereum) {
         web3 = new Web3(window.ethereum);
@@ -37,11 +39,14 @@ async function initWeb3() {
             accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
             updateWalletDisplay();
             
+            // यहाँ बदलाव किया गया (close को disconnect से बदला)
             window.ethereum.on('disconnect', () => {
                 accounts = [];
                 updateWalletDisplay();
+                showNotification("वॉलेट डिस्कनेक्ट हो गया", "error");
             });
             
+            // बाकी इवेंट लिस्नर्स वही रहेंगे
             window.ethereum.on('accountsChanged', (newAccounts) => {
                 accounts = newAccounts;
                 updateWalletDisplay();
@@ -57,57 +62,50 @@ async function initWeb3() {
             console.error("वॉलेट एक्सेस में त्रुटि:", error);
             showNotification("कृपया वॉलेट कनेक्ट करें", "error");
         }
-    } else if (window.web3) {
-        web3 = new Web3(window.web3.currentProvider);
-        accounts = await web3.eth.getAccounts();
-        updateWalletDisplay();
     } else {
         showNotification("कृपया MetaMask इंस्टॉल करें", "error");
     }
 }
 
-async function initContracts() {
-    if (!web3) return;
-
-    try {
-        presaleContract = new web3.eth.Contract(presaleABI, config.presaleAddress);
-        usdtContract = new web3.eth.Contract(usdtABI, config.usdtAddress);
-        vnsContract = new web3.eth.Contract(vnsABI, config.vnsAddress);
-
-        vnsDecimals = await vnsContract.methods.decimals().call();
-        usdtDecimals = await usdtContract.methods.decimals().call();
-    } catch (error) {
-        console.error("कॉन्ट्रैक्ट इनिशियलाइजेशन में त्रुटि:", error);
-        showNotification("कॉन्ट्रैक्ट से कनेक्ट नहीं हो पाया", "error");
-    }
-}
-
 async function loadContractData() {
-    if (!presaleContract || !vnsContract) return;
+    if (!presaleContract || !vnsContract || !usdtContract) return;
 
     try {
+        // कॉन्ट्रैक्ट एड्रेस लोड करें
         const vnsAddress = await presaleContract.methods.vnsToken().call();
         document.getElementById('vnsContract').textContent = vnsAddress;
         document.getElementById('presaleContract').textContent = config.presaleAddress;
         
+        // प्राइस लोड करें
         const price = await presaleContract.methods.pricePerVNS().call();
         document.getElementById('currentPrice').textContent = web3.utils.fromWei(price, 'ether');
         
+        // सेलर वॉलेट से VNS बैलेंस चेक करें
         const sellerWallet = await presaleContract.methods.sellerWallet().call();
         const availableTokens = await vnsContract.methods.balanceOf(sellerWallet).call();
         document.getElementById('availableTokens').textContent = formatTokenAmount(availableTokens, vnsDecimals);
         
+        // यूजर का USDT बैलेंस चेक करें
+        if (accounts.length > 0) {
+            const usdtBalance = await usdtContract.methods.balanceOf(accounts[0]).call();
+            console.log("यूजर का USDT बैलेंस:", usdtBalance);
+        }
+        
+        // मिनिमम खरीद मात्रा
         const minPurchase = await presaleContract.methods.minPurchase().call();
         document.getElementById('minPurchase').textContent = formatTokenAmount(minPurchase, vnsDecimals);
         
+        // कॉन्ट्रैक्ट स्टेटस
         const isPaused = await presaleContract.methods.isPaused().call();
         document.getElementById('contractStatus').textContent = isPaused ? "रोका हुआ" : "चालू";
         
     } catch (error) {
         console.error("डेटा लोड करने में त्रुटि:", error);
-        showNotification("कॉन्ट्रैक्ट डेटा लोड नहीं हो पाया", "error");
+        showNotification("कॉन्ट्रैक्ट डेटा लोड नहीं हो पाया: " + error.message, "error");
     }
 }
+
+// ... [बाकी फंक्शन्स वही रहेंगे जैसे buyVnsTokens, approveUsdt आदि]
 
 function setupEventListeners() {
     document.getElementById('connectWallet').addEventListener('click', connectWallet);
