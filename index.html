@@ -4,100 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VNS Token Presale</title>
-    <link rel="icon" href="data:,">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .contract-box {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .copy-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .buy-section {
+            background-color: #e9f7ef;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .status-active {
+            color: green;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>VNS Token Presale</h1>
-            <div class="wallet-section">
-                <span id="walletAddress"></span>
-                <button id="connectWallet">Connect Wallet</button>
-            </div>
-        </header>
-
-        <div id="notification" class="notification"></div>
-
-        <main>
-            <section class="contract-info">
-                <h2>Contract Information</h2>
-                <div class="info-grid">
-                    <div>
-                        <label>Presale Contract:</label>
-                        <span id="presaleContract">Loading...</span>
-                        <button id="copyPresaleContract">Copy</button>
-                    </div>
-                    <div>
-                        <label>VNS Token:</label>
-                        <span id="vnsContract">Loading...</span>
-                        <button id="copyVnsContract">Copy</button>
-                    </div>
-                    <div>
-                        <label>Current Price:</label>
-                        <span id="currentPrice">0.00</span> USDT per VNS
-                    </div>
-                    <div>
-                        <label>Available Tokens:</label>
-                        <span id="availableTokens">0</span> VNS
-                    </div>
-                    <div>
-                        <label>Your USDT Balance:</label>
-                        <span id="userUsdtBalance">0</span>
-                    </div>
-                    <div>
-                        <label>Minimum Purchase:</label>
-                        <span id="minPurchase">0</span> VNS
-                    </div>
-                    <div>
-                        <label>Presale Status:</label>
-                        <span id="contractStatus">Loading...</span>
-                    </div>
-                </div>
-            </section>
-
-            <section class="buy-section">
-                <h2>Buy VNS Tokens</h2>
-                <div class="buy-form">
-                    <div class="form-group">
-                        <label for="vnsAmount">VNS Amount:</label>
-                        <input type="number" id="vnsAmount" placeholder="Enter VNS amount">
-                    </div>
-                    <div class="form-group">
-                        <label>USDT Cost:</label>
-                        <span id="usdtCost">0.00</span> USDT
-                    </div>
-                    <button id="buyWithVns" class="gold-button">Buy VNS Tokens</button>
-                </div>
-            </section>
-        </main>
+    <h1>Presale Contract:</h1>
+    <div class="contract-box">
+        <span id="presaleContract">0x1d696372c2311607f56ea55294B54545160d451b0</span>
+        <button class="copy-btn" onclick="copyToClipboard('presaleContract')">Copy</button>
+        <p>Available Tokens: <span id="availableTokens">0.00</span> VNS</p>
     </div>
 
-    <!-- Approve USDT Modal -->
-    <div id="approveModal" class="modal">
-        <div class="modal-content">
-            <h3>Approve USDT Spending</h3>
-            <p>You need to approve <span id="approveAmount">0</span> USDT for this purchase.</p>
-            <div class="modal-buttons">
-                <button id="cancelApprove">Cancel</button>
-                <button id="approveBtn" class="gold-button">Approve USDT</button>
-            </div>
-        </div>
+    <h1>USDT Token:</h1>
+    <div class="contract-box">
+        <span id="usdtContract">0xD58b19A7A083E64b3fZ541eDD08BaDFzD186D101</span>
+        <button class="copy-btn" onclick="copyToClipboard('usdtContract')">Copy</button>
+        <p>Your USDT Balance: <span id="usdtBalance">0.00</span></p>
     </div>
 
-    <!-- Confirm Purchase Modal -->
-    <div id="buyModal" class="modal">
-        <div class="modal-content">
-            <h3>Confirm Purchase</h3>
-            <p>Are you sure you want to buy <span id="confirmVnsAmount">0</span> VNS for <span id="confirmUsdtAmount">0</span> USDT?</p>
-            <div class="modal-buttons">
-                <button id="cancelBuy">Cancel</button>
-                <button id="confirmBuyBtn" class="gold-button">Confirm Purchase</button>
-            </div>
-        </div>
+    <div class="contract-box">
+        <h2>Current Price:</h2>
+        <p><span id="tokenPrice">0.9</span> USDT per VNS</p>
+        <p>Minimum Purchase: <span id="minPurchase">10.00</span> VNS</p>
     </div>
 
+    <div class="contract-box">
+        <h2>Presale Status:</h2>
+        <p class="status-active" id="presaleStatus">Active</p>
+    </div>
+
+    <div class="buy-section">
+        <h2>Buy VNS Tokens</h2>
+        <label for="vnsAmount">VNS Amount:</label>
+        <input type="number" id="vnsAmount" min="10" step="0.1" value="15">
+        <p>USDT Cost: <span id="usdtCost">13.500000</span> USDT</p>
+        <button id="approveBtn">Approve USDT</button>
+        <button id="buyBtn">Buy VNS Tokens</button>
+        <div id="errorMessage" class="error"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
