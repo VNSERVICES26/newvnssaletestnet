@@ -1,221 +1,182 @@
-/* Global Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+/* style.css - Black & Golden Theme */
+:root {
+  --gold: #FFD700;
+  --dark-gold: #D4AF37;
+  --black: #000000;
+  --dark-gray: #1A1A1A;
+  --medium-gray: #333333;
+  --light-gray: #4D4D4D;
+  --white: #FFFFFF;
+  --error-red: #FF3333;
 }
 
 body {
-    background-color: #121212;
-    color: #e0e0e0;
-    line-height: 1.6;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/* Header Styles */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 0;
-    border-bottom: 1px solid #D4AF37;
-    margin-bottom: 30px;
+  font-family: 'Arial', sans-serif;
+  background-color: var(--black);
+  color: var(--white);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  line-height: 1.6;
 }
 
 h1, h2, h3 {
-    color: #D4AF37;
+  color: var(--gold);
+  border-bottom: 1px solid var(--dark-gold);
+  padding-bottom: 8px;
 }
 
-.wallet-section {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+.contract-box {
+  background-color: var(--dark-gray);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  border: 1px solid var(--dark-gold);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Button Styles */
+.copy-btn {
+  background-color: var(--dark-gold);
+  color: var(--black);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.copy-btn:hover {
+  background-color: var(--gold);
+  transform: translateY(-1px);
+}
+
+.buy-section {
+  background-color: var(--medium-gray);
+  padding: 25px;
+  border-radius: 8px;
+  border: 1px solid var(--dark-gold);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  background-color: var(--light-gray);
+  border: 1px solid var(--dark-gold);
+  color: var(--white);
+  border-radius: 4px;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 5px var(--gold);
+}
+
 button {
-    background-color: #333;
-    color: #D4AF37;
-    border: 1px solid #D4AF37;
-    padding: 8px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 14px;
+  background: linear-gradient(to bottom, var(--dark-gold), var(--gold));
+  color: var(--black);
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 8px 5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
-    background-color: #D4AF37;
-    color: #121212;
+  background: linear-gradient(to bottom, var(--gold), var(--dark-gold));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+  background: var(--medium-gray);
+  color: var(--light-gray);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
-.gold-button {
-    background-color: #D4AF37;
-    color: #121212;
-    font-weight: bold;
+.status-active {
+  color: var(--gold);
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
 }
 
-.gold-button:hover:not(:disabled) {
-    background-color: #c9a227;
+.error {
+  color: var(--error-red);
+  margin: 15px 0;
+  padding: 10px;
+  background-color: rgba(255, 0, 0, 0.1);
+  border-radius: 4px;
+  border-left: 4px solid var(--error-red);
 }
 
-/* Notification Styles */
-.notification {
-    display: none;
-    padding: 10px 15px;
-    margin-bottom: 20px;
-    border-radius: 4px;
-    text-align: center;
+.wallet-section {
+  text-align: right;
+  margin-bottom: 30px;
+  padding: 15px;
+  background-color: var(--dark-gray);
+  border-radius: 8px;
+  border: 1px solid var(--dark-gold);
 }
 
-.notification.success {
-    background-color: #2e7d32;
-    color: white;
-    display: block;
+#connectWallet {
+  background: linear-gradient(to bottom, var(--gold), var(--dark-gold));
+  padding: 10px 25px;
 }
 
-.notification.error {
-    background-color: #c62828;
-    color: white;
-    display: block;
+#walletAddress {
+  font-weight: bold;
+  word-break: break-all;
+  color: var(--gold);
+  cursor: pointer;
 }
 
-.notification.info {
-    background-color: #1565c0;
-    color: white;
-    display: block;
+#walletAddress:hover {
+  text-decoration: underline;
 }
 
-/* Info Grid Styles */
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    margin: 20px 0;
+#loadingMessage {
+  color: var(--gold);
+  font-style: italic;
+  margin-top: 15px;
+  display: none;
 }
 
-.info-grid div {
-    background-color: #1e1e1e;
-    padding: 15px;
-    border-radius: 5px;
-    border-left: 3px solid #D4AF37;
+/* Tooltip for wallet address */
+[title]:hover:after {
+  content: attr(title);
+  padding: 5px 10px;
+  color: var(--black);
+  background-color: var(--gold);
+  border-radius: 4px;
+  position: absolute;
+  z-index: 1;
+  margin-left: 5px;
+  font-size: 14px;
 }
 
-.info-grid label {
-    display: block;
-    margin-bottom: 5px;
-    color: #D4AF37;
-    font-weight: bold;
-}
-
-.info-grid span {
-    word-break: break-all;
-    display: inline-block;
-    margin-right: 10px;
-    margin-bottom: 5px;
-}
-
-/* Form Styles */
-.buy-form {
-    background-color: #1e1e1e;
-    padding: 20px;
-    border-radius: 5px;
-    margin-top: 20px;
-    border: 1px solid #D4AF37;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    color: #D4AF37;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 10px;
-    background-color: #333;
-    border: 1px solid #444;
-    color: #e0e0e0;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 100;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background-color: #1e1e1e;
-    padding: 30px;
-    border-radius: 5px;
-    width: 90%;
-    max-width: 500px;
-    border: 1px solid #D4AF37;
-}
-
-.modal h3 {
-    margin-bottom: 15px;
-    color: #D4AF37;
-}
-
-.modal p {
-    margin-bottom: 20px;
-    font-size: 16px;
-}
-
-.modal p span {
-    font-weight: bold;
-    color: #D4AF37;
-}
-
-.modal-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-}
-
-/* Responsive Styles */
+/* Responsive design */
 @media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-    
-    .info-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .modal-buttons {
-        flex-direction: column;
-    }
-    
-    .modal-buttons button {
-        width: 100%;
-    }
+  body {
+    padding: 15px;
+  }
+  
+  .contract-box, .buy-section {
+    padding: 15px;
+  }
+  
+  button {
+    width: 100%;
+    margin: 8px 0;
+  }
 }
