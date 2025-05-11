@@ -4,120 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VNS Token Presale</title>
-    <link rel="icon" href="data:,"> <!-- Fixes favicon 404 error -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .contract-box {
-            background-color: #f5f5f5;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        .copy-btn {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-        .buy-section {
-            background-color: #e9f7ef;
-            padding: 20px;
-            border-radius: 8px;
-        }
-        input {
-            width: 100%;
-            padding: 8px;
-            margin: 8px 0;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            margin: 5px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        button:disabled {
-            background-color: #cccccc;
-            cursor: not-allowed;
-        }
-        .status-active {
-            color: green;
-            font-weight: bold;
-        }
-        .error {
-            color: red;
-            margin-top: 10px;
-        }
-        .wallet-section {
-            text-align: right;
-            margin-bottom: 20px;
-        }
-        #walletAddress {
-            font-weight: bold;
-            word-break: break-all;
-        }
-    </style>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
 </head>
 <body>
     <div class="wallet-section">
         <button id="connectWallet">Connect Wallet</button>
         <div id="walletInfo" style="display: none;">
-            <p>Connected: <span id="walletAddress"></span></p>
+            <p>Connected: <span id="walletAddress" title=""></span></p>
+            <p>Network: <span id="networkName"></span></p>
         </div>
     </div>
 
-    <h1>Presale Contract:</h1>
-    <div class="contract-box">
-        <span id="presaleContract">0x1d696372c2311607f56ea55294B54545160d451b0</span>
-        <button class="copy-btn" onclick="copyToClipboard('presaleContract')">Copy</button>
-        <p>Available Tokens: <span id="availableTokens">0.00</span> VNS</p>
+    <div class="container">
+        <h1>VNS Token Presale</h1>
+        
+        <div class="contract-box">
+            <h2>Presale Contract:</h2>
+            <div class="address-row">
+                <span id="presaleContract">0x1d696372c2311607f56ea55294B54545160d451b0</span>
+                <button class="copy-btn" onclick="copyToClipboard('presaleContract')">Copy</button>
+            </div>
+            <p>Available Tokens: <span id="availableTokens">0.00</span> VNS</p>
+        </div>
+
+        <div class="contract-box">
+            <h2>USDT Token:</h2>
+            <div class="address-row">
+                <span id="usdtContract">0xD58b19A7A083E64b3fZ541eDD08BaDFzD186D101</span>
+                <button class="copy-btn" onclick="copyToClipboard('usdtContract')">Copy</button>
+            </div>
+            <p>Your USDT Balance: <span id="usdtBalance">0.00</span></p>
+        </div>
+
+        <div class="info-box">
+            <div class="info-item">
+                <h3>Current Price:</h3>
+                <p><span id="tokenPrice">0.9</span> USDT per VNS</p>
+            </div>
+            <div class="info-item">
+                <h3>Minimum Purchase:</h3>
+                <p><span id="minPurchase">10.00</span> VNS</p>
+            </div>
+            <div class="info-item">
+                <h3>Presale Status:</h3>
+                <p class="status-active" id="presaleStatus">Active</p>
+            </div>
+        </div>
+
+        <div class="buy-section">
+            <h2>Buy VNS Tokens</h2>
+            <div class="input-group">
+                <label for="vnsAmount">VNS Amount:</label>
+                <input type="number" id="vnsAmount" min="10" step="0.1" value="15">
+            </div>
+            <p>USDT Cost: <span id="usdtCost">13.500000</span> USDT</p>
+            <div class="button-group">
+                <button id="approveBtn" disabled>Approve USDT</button>
+                <button id="buyBtn" disabled>Buy VNS Tokens</button>
+            </div>
+            <div id="errorMessage" class="error"></div>
+            <div id="loadingMessage" style="display: none;">
+                <div class="loader"></div>
+                <p>Processing transaction...</p>
+            </div>
+            <div id="successMessage" class="success" style="display: none;"></div>
+        </div>
     </div>
 
-    <h1>USDT Token:</h1>
-    <div class="contract-box">
-        <span id="usdtContract">0xD58b19A7A083E64b3fZ541eDD08BaDFzD186D101</span>
-        <button class="copy-btn" onclick="copyToClipboard('usdtContract')">Copy</button>
-        <p>Your USDT Balance: <span id="usdtBalance">0.00</span></p>
-    </div>
-
-    <div class="contract-box">
-        <h2>Current Price:</h2>
-        <p><span id="tokenPrice">0.9</span> USDT per VNS</p>
-        <p>Minimum Purchase: <span id="minPurchase">10.00</span> VNS</p>
-    </div>
-
-    <div class="contract-box">
-        <h2>Presale Status:</h2>
-        <p class="status-active" id="presaleStatus">Active</p>
-    </div>
-
-    <div class="buy-section">
-        <h2>Buy VNS Tokens</h2>
-        <label for="vnsAmount">VNS Amount:</label>
-        <input type="number" id="vnsAmount" min="10" step="0.1" value="15">
-        <p>USDT Cost: <span id="usdtCost">13.500000</span> USDT</p>
-        <button id="approveBtn" disabled>Approve USDT</button>
-        <button id="buyBtn" disabled>Buy VNS Tokens</button>
-        <div id="errorMessage" class="error"></div>
-        <div id="loadingMessage" style="display: none;">Processing transaction...</div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
