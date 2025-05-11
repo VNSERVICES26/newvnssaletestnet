@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VNS Token Presale</title>
+    <title>VNS टोकन प्रीसेल</title>
+    <link rel="icon" href="data:,">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>VNS Token Presale</h1>
+            <h1>VNS टोकन प्रीसेल</h1>
             <div class="wallet-section">
                 <span id="walletAddress"></span>
-                <button id="connectWallet">Connect Wallet</button>
+                <button id="connectWallet">वॉलेट कनेक्ट करें</button>
             </div>
         </header>
 
@@ -21,74 +22,74 @@
 
         <main>
             <section class="contract-info">
-                <h2>Contract Information</h2>
+                <h2>कॉन्ट्रैक्ट जानकारी</h2>
                 <div class="info-grid">
                     <div>
-                        <label>Presale Contract:</label>
-                        <span id="presaleContract">Loading...</span>
-                        <button id="copyPresaleContract">Copy</button>
+                        <label>प्रीसेल कॉन्ट्रैक्ट:</label>
+                        <span id="presaleContract">लोड हो रहा है...</span>
+                        <button id="copyPresaleContract">कॉपी करें</button>
                     </div>
                     <div>
-                        <label>VNS Token:</label>
-                        <span id="vnsContract">Loading...</span>
-                        <button id="copyVnsContract">Copy</button>
+                        <label>VNS टोकन:</label>
+                        <span id="vnsContract">लोड हो रहा है...</span>
+                        <button id="copyVnsContract">कॉपी करें</button>
                     </div>
                     <div>
-                        <label>Current Price:</label>
-                        <span id="currentPrice">0.00</span> USDT per VNS
+                        <label>मूल्य:</label>
+                        <span id="currentPrice">0.00</span> USDT प्रति VNS
                     </div>
                     <div>
-                        <label>Available Tokens:</label>
+                        <label>उपलब्ध टोकन:</label>
                         <span id="availableTokens">0</span> VNS
                     </div>
                     <div>
-                        <label>Minimum Purchase:</label>
+                        <label>न्यूनतम खरीद:</label>
                         <span id="minPurchase">0</span> VNS
                     </div>
                     <div>
-                        <label>Presale Status:</label>
-                        <span id="contractStatus">Loading...</span>
+                        <label>प्रीसेल स्थिति:</label>
+                        <span id="contractStatus">लोड हो रहा है...</span>
                     </div>
                 </div>
             </section>
 
             <section class="buy-section">
-                <h2>Buy VNS Tokens</h2>
+                <h2>VNS टोकन खरीदें</h2>
                 <div class="buy-form">
                     <div class="form-group">
-                        <label for="vnsAmount">VNS Amount:</label>
-                        <input type="number" id="vnsAmount" placeholder="Enter VNS amount">
+                        <label for="vnsAmount">VNS मात्रा:</label>
+                        <input type="number" id="vnsAmount" placeholder="VNS मात्रा डालें">
                     </div>
                     <div class="form-group">
-                        <label>USDT Cost:</label>
+                        <label>USDT लागत:</label>
                         <span id="usdtCost">0.00</span> USDT
                     </div>
-                    <button id="buyWithVns" class="gold-button">Buy VNS Tokens</button>
+                    <button id="buyWithVns" class="gold-button">VNS टोकन खरीदें</button>
                 </div>
             </section>
         </main>
     </div>
 
-    <!-- Approve USDT Modal -->
+    <!-- USDT अनुमति मोडल -->
     <div id="approveModal" class="modal">
         <div class="modal-content">
-            <h3>Approve USDT Spending</h3>
-            <p>You need to approve <span id="approveAmount">0</span> USDT for this purchase.</p>
+            <h3>USDT अनुमति</h3>
+            <p>आपको इस खरीदारी के लिए <span id="approveAmount">0</span> USDT की अनुमति देनी होगी</p>
             <div class="modal-buttons">
-                <button id="cancelApprove">Cancel</button>
-                <button id="approveBtn" class="gold-button">Approve USDT</button>
+                <button id="cancelApprove">रद्द करें</button>
+                <button id="approveBtn" class="gold-button">USDT अनुमति दें</button>
             </div>
         </div>
     </div>
 
-    <!-- Confirm Purchase Modal -->
+    <!-- खरीदारी पुष्टि मोडल -->
     <div id="buyModal" class="modal">
         <div class="modal-content">
-            <h3>Confirm Purchase</h3>
-            <p>Are you sure you want to buy <span id="confirmVnsAmount">0</span> VNS for <span id="confirmUsdtAmount">0</span> USDT?</p>
+            <h3>खरीदारी की पुष्टि करें</h3>
+            <p>क्या आप <span id="confirmVnsAmount">0</span> VNS को <span id="confirmUsdtAmount">0</span> USDT में खरीदना चाहते हैं?</p>
             <div class="modal-buttons">
-                <button id="cancelBuy">Cancel</button>
-                <button id="confirmBuyBtn" class="gold-button">Confirm Purchase</button>
+                <button id="cancelBuy">रद्द करें</button>
+                <button id="confirmBuyBtn" class="gold-button">पुष्टि करें</button>
             </div>
         </div>
     </div>
