@@ -1,7 +1,7 @@
 // Contract ABIs (same as before)
-const presaleABI = [{"inputs":[{"internalType":"address","name":"_vnsToken","type":"address"},{"internalType":"address","name":"_usdtToken","type":"address"},{"internalType":"address","name":"_sellerWallet","type":"address"},{"internalType":"address","name":"_paymentReceiver","type":"address"},{"internalType":"uint256","name":"_initialPrice","type":"uint256"},{"internalType":"uint256","name":"_minPurchase","type":"uint256"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"buyer","type":"address"},{"indexed":false,"internalType":"uint256","name":"vnsAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"usdtAmount","type":"uint256"}],"name":"TokensPurchased","type":"event"},{"inputs":[{"internalType":"uint256","name":"vnsAmount","type":"uint256"}],"name":"buyTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"isPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"minPurchase","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pause","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"paymentReceiver","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pricePerVNS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"sellerWallet","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"newMin","type":"uint256"}],"name":"setMinPurchase","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newReceiver","type":"address"}],"name":"setPaymentReceiver","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newPrice","type":"uint256"}],"name":"setPrice","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newToken","type":"address"}],"name":"setVnsToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"unpause","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"usdtToken","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"vnsToken","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"}];
-const usdtABI = [{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"_decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"mint","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}];
-const vnsABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"account","type":"address"}],"name":"Paused","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"account","type":"address"}],"name":"Unpaused","type":"event"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"isPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pauseContract","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"unpauseContract","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+const presaleABI = [{"inputs":[{"internalType":"address","name":"_vnsToken","type":"address"},{"internalType":"address","name":"_usdtToken","type":"address"},{"internalType":"address","name":"_sellerWallet","type":"address"},{"internalType":"address","name":"_paymentReceiver","type":"address"},{"internalType":"uint256","name":"_initialPrice","type":"uint256"},{"internalType":"uint256","name":"_minPurchase","type":"uint256"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"buyer","type":"address"},{"indexed":false,"internalType":"uint256","name":"vnsAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"usdtAmount","type":"uint256"}],"name":"TokensPurchased","type":"event"},{"inputs":[{"internalType":"uint256","name":"vnsAmount","type":"uint256"}],"name":"buyTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"isPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"minPurchase","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pause","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"paymentReceiver","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pricePerVNS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"sellerWallet","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"newMin","type":"uint256"}],"name":"setMinPurchase","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newReceiver","type":"address"}],"name":"setPaymentReceiver","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newPrice","type":"uint256"}],"name":"setPrice","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newToken","type":"address"}],"name":"setVnsToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"unpause","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"usdtToken","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"vnsToken","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"}]; // आपका मूल ABI कोड यहाँ रहेगा
+const usdtABI = [{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"_decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"mint","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}]; // आपका मूल ABI कोड यहाँ रहेगा
+const vnsABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"account","type":"address"}],"name":"Paused","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"account","type":"address"}],"name":"Unpaused","type":"event"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"isPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pauseContract","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"unpauseContract","outputs":[],"stateMutability":"nonpayable","type":"function"}]; // आपका मूल ABI कोड यहाँ रहेगा
 
 // Configuration with your contract addresses
 const config = {
@@ -34,33 +34,35 @@ async function initWeb3() {
     if (window.ethereum) {
         web3 = new Web3(window.ethereum);
         try {
-            // Request account access
             accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
             updateWalletDisplay();
             
-            // Listen for account changes
+            window.ethereum.on('disconnect', () => {
+                accounts = [];
+                updateWalletDisplay();
+            });
+            
             window.ethereum.on('accountsChanged', (newAccounts) => {
                 accounts = newAccounts;
                 updateWalletDisplay();
                 loadContractData();
             });
             
-            // Listen for chain changes
             window.ethereum.on('chainChanged', () => {
                 window.location.reload();
             });
             
-            showNotification("Wallet connected successfully", "success");
+            showNotification("वॉलेट सफलतापूर्वक कनेक्ट हुआ", "success");
         } catch (error) {
-            console.error("User denied account access:", error);
-            showNotification("Please connect your wallet to continue", "error");
+            console.error("वॉलेट एक्सेस में त्रुटि:", error);
+            showNotification("कृपया वॉलेट कनेक्ट करें", "error");
         }
     } else if (window.web3) {
         web3 = new Web3(window.web3.currentProvider);
         accounts = await web3.eth.getAccounts();
         updateWalletDisplay();
     } else {
-        showNotification("Please install MetaMask or another Web3 wallet to use this dApp", "error");
+        showNotification("कृपया MetaMask इंस्टॉल करें", "error");
     }
 }
 
@@ -72,12 +74,11 @@ async function initContracts() {
         usdtContract = new web3.eth.Contract(usdtABI, config.usdtAddress);
         vnsContract = new web3.eth.Contract(vnsABI, config.vnsAddress);
 
-        // Get token decimals
         vnsDecimals = await vnsContract.methods.decimals().call();
         usdtDecimals = await usdtContract.methods.decimals().call();
     } catch (error) {
-        console.error("Error initializing contracts:", error);
-        showNotification("Error connecting to contracts. Please try again.", "error");
+        console.error("कॉन्ट्रैक्ट इनिशियलाइजेशन में त्रुटि:", error);
+        showNotification("कॉन्ट्रैक्ट से कनेक्ट नहीं हो पाया", "error");
     }
 }
 
@@ -85,12 +86,10 @@ async function loadContractData() {
     if (!presaleContract || !vnsContract) return;
 
     try {
-        // Load contract addresses
         const vnsAddress = await presaleContract.methods.vnsToken().call();
         document.getElementById('vnsContract').textContent = vnsAddress;
         document.getElementById('presaleContract').textContent = config.presaleAddress;
         
-        // Load price and token info
         const price = await presaleContract.methods.pricePerVNS().call();
         document.getElementById('currentPrice').textContent = web3.utils.fromWei(price, 'ether');
         
@@ -101,70 +100,56 @@ async function loadContractData() {
         const minPurchase = await presaleContract.methods.minPurchase().call();
         document.getElementById('minPurchase').textContent = formatTokenAmount(minPurchase, vnsDecimals);
         
-        // Load contract status
         const isPaused = await presaleContract.methods.isPaused().call();
-        document.getElementById('contractStatus').textContent = isPaused ? "Paused" : "Active";
+        document.getElementById('contractStatus').textContent = isPaused ? "रोका हुआ" : "चालू";
         
     } catch (error) {
-        console.error("Failed to load contract data:", error);
-        showNotification("Failed to load contract data. Please try again.", "error");
+        console.error("डेटा लोड करने में त्रुटि:", error);
+        showNotification("कॉन्ट्रैक्ट डेटा लोड नहीं हो पाया", "error");
     }
 }
 
 function setupEventListeners() {
-    // Wallet connection
     document.getElementById('connectWallet').addEventListener('click', connectWallet);
-    
-    // Copy contract addresses
     document.getElementById('copyPresaleContract').addEventListener('click', () => copyToClipboard(config.presaleAddress));
     document.getElementById('copyVnsContract').addEventListener('click', async () => {
         const vnsAddress = await presaleContract.methods.vnsToken().call();
         copyToClipboard(vnsAddress);
     });
-    
-    // Buy functionality
     document.getElementById('vnsAmount').addEventListener('input', calculateUsdtCost);
     document.getElementById('buyWithVns').addEventListener('click', buyVnsTokens);
-    
-    // Modal controls
     document.getElementById('cancelApprove').addEventListener('click', () => hideModal('approveModal'));
     document.getElementById('cancelBuy').addEventListener('click', () => hideModal('buyModal'));
-    
-    // Approve and Buy buttons
     document.getElementById('approveBtn').addEventListener('click', approveUsdt);
     document.getElementById('confirmBuyBtn').addEventListener('click', executeBuy);
 }
 
-// Helper function to format token amounts
 function formatTokenAmount(amount, decimals) {
-    const formatted = web3.utils.fromWei(amount.toString(), 'ether') / (10 ** (18 - decimals));
-    return formatted.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 });
+    return (web3.utils.fromWei(amount.toString(), 'ether') / (10 ** (18 - decimals))).toFixed(2);
 }
 
-// Connect wallet function
 async function connectWallet() {
     try {
         if (window.ethereum) {
             document.getElementById('connectWallet').disabled = true;
-            document.getElementById('connectWallet').textContent = "Connecting...";
+            document.getElementById('connectWallet').textContent = "कनेक्ट हो रहा है...";
             
             accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
             updateWalletDisplay();
             loadContractData();
             
-            showNotification("Wallet connected successfully", "success");
+            showNotification("वॉलेट सफलतापूर्वक कनेक्ट हुआ", "success");
         } else {
-            showNotification("Please install MetaMask to connect wallet", "error");
+            showNotification("कृपया MetaMask इंस्टॉल करें", "error");
         }
     } catch (error) {
-        console.error("Error connecting wallet:", error);
-        showNotification("Error connecting wallet: " + error.message, "error");
+        console.error("वॉलेट कनेक्शन त्रुटि:", error);
+        showNotification("वॉलेट कनेक्ट नहीं हो पाया: " + error.message, "error");
         document.getElementById('connectWallet').disabled = false;
-        document.getElementById('connectWallet').textContent = "Connect Wallet";
+        document.getElementById('connectWallet').textContent = "वॉलेट कनेक्ट करें";
     }
 }
 
-// Calculate USDT cost based on VNS amount
 function calculateUsdtCost() {
     const vnsAmount = document.getElementById('vnsAmount').value;
     if (!vnsAmount || isNaN(vnsAmount)) {
@@ -177,10 +162,9 @@ function calculateUsdtCost() {
     document.getElementById('usdtCost').textContent = usdtCost.toFixed(6);
 }
 
-// Buy VNS tokens function
 async function buyVnsTokens() {
     if (!accounts || accounts.length === 0) {
-        showNotification("कृपया पहले अपना वॉलेट कनेक्ट करें", "error");
+        showNotification("कृपया पहले वॉलेट कनेक्ट करें", "error");
         return;
     }
 
@@ -194,11 +178,9 @@ async function buyVnsTokens() {
         document.getElementById('buyWithVns').disabled = true;
         document.getElementById('buyWithVns').textContent = "प्रोसेसिंग...";
         
-        // VNS मात्रा को सही तरीके से कैलकुलेट करें
         const vnsAmount = web3.utils.toWei(vnsAmountInput, 'ether');
         const vnsAmountWithDecimals = BigInt(vnsAmount) * (10n ** BigInt(18 - vnsDecimals));
         
-        // कॉन्ट्रैक्ट स्टेटस चेक करें
         const isPaused = await presaleContract.methods.isPaused().call();
         if (isPaused) {
             showNotification("प्रीसेल अभी रोका हुआ है", "error");
@@ -206,7 +188,6 @@ async function buyVnsTokens() {
             return;
         }
         
-        // न्यूनतम खरीद मात्रा चेक करें
         const minPurchase = await presaleContract.methods.minPurchase().call();
         if (vnsAmountWithDecimals < BigInt(minPurchase)) {
             showNotification(`न्यूनतम खरीद ${formatTokenAmount(minPurchase, vnsDecimals)} VNS है`, "error");
@@ -214,11 +195,9 @@ async function buyVnsTokens() {
             return;
         }
         
-        // आवश्यक USDT की गणना करें
         const pricePerVNS = await presaleContract.methods.pricePerVNS().call();
         const requiredUsdt = BigInt(pricePerVNS) * vnsAmountWithDecimals / (10n ** BigInt(vnsDecimals));
         
-        // USDT बैलेंस चेक करें
         const usdtBalance = await usdtContract.methods.balanceOf(accounts[0]).call();
         if (BigInt(usdtBalance) < requiredUsdt) {
             showNotification("आपके पास पर्याप्त USDT नहीं है", "error");
@@ -226,14 +205,12 @@ async function buyVnsTokens() {
             return;
         }
         
-        // अनुमति (allowance) चेक करें
         const allowance = await usdtContract.methods.allowance(accounts[0], config.presaleAddress).call();
         
         if (BigInt(allowance) < requiredUsdt) {
             document.getElementById('approveAmount').textContent = formatTokenAmount(requiredUsdt.toString(), usdtDecimals);
             showModal('approveModal');
             
-            // बाद में उपयोग के लिए डेटा स्टोर करें
             window.pendingPurchase = {
                 vnsAmount: vnsAmountInput,
                 vnsAmountWei: vnsAmountWithDecimals.toString(),
@@ -245,12 +222,10 @@ async function buyVnsTokens() {
     } catch (error) {
         console.error("खरीदने में त्रुटि:", error);
         showNotification("खरीद प्रक्रिया में त्रुटि: " + error.message, "error");
-    } finally {
         resetBuyButton();
     }
 }
 
-// Show buy confirmation modal
 function showBuyModal(vnsAmountInput, pricePerVNS) {
     document.getElementById('confirmVnsAmount').textContent = vnsAmountInput;
     document.getElementById('confirmUsdtAmount').textContent = 
@@ -258,7 +233,6 @@ function showBuyModal(vnsAmountInput, pricePerVNS) {
     showModal('buyModal');
 }
 
-// Approve USDT spending
 async function approveUsdt() {
     try {
         document.getElementById('approveBtn').disabled = true;
@@ -284,7 +258,6 @@ async function approveUsdt() {
         hideModal('approveModal');
         showNotification("USDT अनुमति सफलतापूर्वक दी गई", "success");
         
-        // अनुमति के बाद खरीदारी जारी रखें
         showBuyModal(window.pendingPurchase.vnsAmount, window.pendingPurchase.pricePerVNS);
     } catch (error) {
         console.error("अनुमति त्रुटि:", error);
@@ -295,7 +268,6 @@ async function approveUsdt() {
     }
 }
 
-// Execute buy transaction
 async function executeBuy() {
     try {
         document.getElementById('confirmBuyBtn').disabled = true;
@@ -317,7 +289,6 @@ async function executeBuy() {
         hideModal('buyModal');
         showNotification("टोकन सफलतापूर्वक खरीदे गए!", "success");
         
-        // डेटा रिफ्रेश करें और इनपुट साफ करें
         loadContractData();
         document.getElementById('vnsAmount').value = '';
         document.getElementById('usdtCost').textContent = '0.00';
@@ -336,7 +307,14 @@ async function executeBuy() {
     }
 }
 
-// Copy to clipboard function
+function resetBuyButton() {
+    const buyButton = document.getElementById('buyWithVns');
+    if(buyButton) {
+        buyButton.disabled = false;
+        buyButton.textContent = "VNS टोकन खरीदें";
+    }
+}
+
 function copyToClipboard(text) {
     const el = document.createElement('textarea');
     el.value = text;
@@ -344,10 +322,9 @@ function copyToClipboard(text) {
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
-    showNotification("Copied to clipboard: " + text.substring(0, 10) + "...", "success");
+    showNotification("कॉपी किया गया: " + text.substring(0, 10) + "...", "success");
 }
 
-// UI Helper functions
 function showNotification(message, type) {
     const notification = document.getElementById('notification');
     notification.textContent = message;
@@ -373,12 +350,12 @@ function updateWalletDisplay() {
     
     if (accounts && accounts.length > 0) {
         const shortAddress = `${accounts[0].substring(0, 6)}...${accounts[0].substring(38)}`;
-        walletDiv.textContent = `Connected: ${shortAddress}`;
-        walletBtn.textContent = "Connected";
+        walletDiv.textContent = `कनेक्टेड: ${shortAddress}`;
+        walletBtn.textContent = "कनेक्टेड";
         walletBtn.disabled = true;
     } else {
         walletDiv.textContent = '';
-        walletBtn.textContent = "Connect Wallet";
+        walletBtn.textContent = "वॉलेट कनेक्ट करें";
         walletBtn.disabled = false;
     }
 }
