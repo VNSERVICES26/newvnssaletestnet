@@ -1,35 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>VNS Token Sale</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>🚀 VNS Token Sale</h1>
+    <h1>VNS Token Sale</h1>
 
     <button onclick="connectWallet()">🔗 Connect Wallet</button>
-    <p id="walletStatus">Wallet not connected</p>
+    <p id="walletAddress">Wallet Not Connected</p>
 
-    <p><strong>VNS Contract Address:</strong> <span id="vnsAddress">0xYourVNSAddressHere</span>
-      <button onclick="copyAddress()">📋 Copy</button></p>
+    <p><b>VNS Token Contract:</b> <span id="tokenAddress">0xYourVNSTokenAddress</span> <button onclick="copyTokenAddress()">📋 Copy</button></p>
+    
+    <p><b>Seller VNS Balance:</b> <span id="sellerBalance">Loading...</span></p>
+    <p><b>Your USDT Balance:</b> <span id="buyerUsdtBalance">Loading...</span></p>
+    <p><b>Minimum Buy:</b> 10 VNS</p>
+<input type="number" id="buyAmount" placeholder="Enter VNS amount" min="10">
 
-    <div class="info">
-      <p>💰 Your USDT Balance: <span id="usdtBalance">--</span></p>
-      <p>📦 Seller VNS Available: <span id="sellerBalance">--</span></p>
-      <p>🛒 Minimum Buy Amount: <span id="minBuy">--</span></p>
-    </div>
 
-    <button onclick="approveTokens()">✅ Approve 100000 VNS</button>
-    <p id="approveStatus"></p>
+    <input type="number" id="buyAmount" placeholder="Enter USDT amount" min="1000">
+    <button onclick="approveUSDT()">✅ Approve USDT</button>
+    <button onclick="buyVNS()">💰 Buy VNS</button>
 
-    <button onclick="buyVNS()">🛍️ Buy VNS</button>
-    <p id="buyStatus"></p>
+    <p id="status"></p>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
