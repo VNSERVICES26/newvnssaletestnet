@@ -60,7 +60,7 @@ async function buyVNS() {
   try {
     const presale = new web3.eth.Contract(presaleAbi, presaleContractAddress);
 
-    const buyAmount = (1000 * 1e18).toString(); // e.g., sending 1000 USDT
+    const buyAmount = web3.utils.toWei("1000", "ether"); 
     await presale.methods.buyTokens(buyAmount).send({ from: userAccount });
 
     document.getElementById("buyStatus").textContent = "✅ VNS Buy Successful!";
