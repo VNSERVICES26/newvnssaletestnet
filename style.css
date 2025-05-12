@@ -1,33 +1,30 @@
 body {
-  background-color: #000;
-  color: goldenrod;
+  background-color: black;
+  color: gold;
   font-family: Arial, sans-serif;
-  padding: 20px;
+  text-align: center;
+  padding: 30px;
 }
 
 .container {
-  max-width: 600px;
-  margin: auto;
-  border: 2px solid goldenrod;
+  border: 2px solid gold;
   padding: 20px;
   border-radius: 10px;
+  display: inline-block;
 }
 
 button {
-  background-color: goldenrod;
+  background-color: gold;
   color: black;
+  padding: 10px 20px;
   border: none;
-  padding: 10px 15px;
-  margin: 10px 0;
-  cursor: pointer;
-  font-weight: bold;
   border-radius: 5px;
+  margin: 10px;
+  cursor: pointer;
 }
 
-button:hover {
-  background-color: #ffc107;
-}
-
-.info p {
-  margin: 5px 0;
+input {
+  padding: 10px;
+  width: 200px;
+  margin: 10px;
 }
