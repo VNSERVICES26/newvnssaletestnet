@@ -40,7 +40,7 @@ async function loadBalances() {
   const buyerUsdt = await usdt.methods.balanceOf(userAccount).call();
 
   document.getElementById("sellerBalance").textContent = (sellerBal / 1e8).toLocaleString() + " VNS";
-  document.getElementById("buyerUsdtBalance").textContent = (buyerUsdt / 1e6).toLocaleString() + " USDT";
+  document.getElementById("buyerUsdtBalance").textContent = (buyerUsdt / 1e18).toLocaleString() + " USDT";
 }
 
 // Inside approveUSDT()
