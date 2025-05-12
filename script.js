@@ -38,7 +38,7 @@ async function loadDetails() {
   const sellerBal = await vns.methods.balanceOf(sellerWallet).call();
   document.getElementById("sellerBalance").textContent = (Number(sellerBal) / 1e8).toLocaleString();
 
-  const minBuy = 1000; // change if needed
+  const minBuy = 10; // change if needed
   document.getElementById("minBuy").textContent = minBuy + " VNS";
 }
 
