@@ -43,6 +43,7 @@ document.getElementById("buyBtn").onclick = async () => {
   }
 
   const usdtAmount = web3.utils.toWei(amount, 'ether'); // USDT = 18 decimals
+  await usdtContract.methods.approve(presaleContractAddress, amountInWei).send({ from: userAddress });
 
   const usdt = new web3.eth.Contract(usdtAbi, usdtTokenAddress);
   const presale = new web3.eth.Contract(presaleAbi, presaleContractAddress);
@@ -54,7 +55,7 @@ document.getElementById("buyBtn").onclick = async () => {
       buyStatus.innerText = "⏳ Approving USDT...";
       await usdt.methods.approve(presaleContractAddress, usdtAmount).send({
         from: userAccount,
-        gas: 100000
+        gas: 150000
       });
     }
 
