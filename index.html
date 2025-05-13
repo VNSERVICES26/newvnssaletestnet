@@ -1,35 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Buy VNS Token</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>VNS Presale</title>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+  <style>
+    body {
+      background-color: #000;
+      color: gold;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+    input {
+      padding: 10px;
+      margin: 10px;
+      width: 200px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      background-color: gold;
+      color: black;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ffd700;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🚀 V Network Services</h1>
-    
-    <button id="connectWallet">🔌 Wallet Connect</button>
-    <p id="walletStatus">🟡 Wallet Not Connected</p>
+  <h1>🚀 VNS Presale</h1>
 
-    <div class="info">
-      <p><b>USDT Balance:</b> <span id="usdtBalance">-</span></p>
-      <p><b>Seller VNS Balance:</b> <span id="sellerVnsBalance">-</span></p>
-      <p><b>Min Buy:</b> 10 VNS</p>
-    </div>
+  <button onclick="connectWallet()">🔌 Connect Wallet</button>
 
-    <input type="number" id="buyAmount" placeholder="Enter USDT amount to spend"/>
-    <button id="buyBtn">🛒 Buy VNS</button>
-    <p id="buyStatus">💬 Waiting for action...</p>
+  <br><br>
 
-    <p><b>VNS Contract:</b> 
-      <span id="vnsAddress">0xYourVnsTokenAddress</span>
-      <button onclick="copyAddress()">📋 Copy</button>
-    </p>
-  </div>
+  <button onclick="approveUSDT()">✅ Approve USDT</button>
 
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
-  <script src="script.js"></script>
+  <br><br>
+
+  <input type="number" id="vnsAmount" placeholder="Enter VNS Amount" min="1" step="1">
+  <br>
+  <button onclick="buyVNS()">🛒 Buy VNS Tokens</button>
+
+  <script>
+    // ========== Replace below addresses and ABIs ==========
+    const usdtAddress = "USDT_CONTRACT_ADDRESS_HERE";         // Your USDT contract (Testnet)
+    const vnsTokenAddress = "VNS_CONTRACT_ADDRESS_HERE";       // Your VNS token contract
+    const presaleContractAddress = "PRESALE_CONTRACT_ADDRESS"; // Your VNSPresale contract
+
+    const usdtAbi = [  // Minimum ABI for approve and allowance
+      {
+        "constant": false,
+        "inputs": [
+          { "name": "_spender", "type": "address" },
+          { "name": "_value", "type": "uint256" }
+        ],
+        "name": "approve",
+        "outputs": [{ "name": "", "type": "bool" }],
+        "type": "function"
+      },
+      {
+        "constant": true,
+        "inputs": [
+          { "name": "_owner", "type": "address" },
+          { "name": "_spender", "type": "address" }
+        ],
+        "name": "allowance",
+        "outputs": [{ "name": "", "type": "uint256" }],
+        "type": "function"
+      }
+    ];
+
+    const presaleAbi = [
+      {
+        "inputs": [
+          { "internalType": "address", "name": "_vnsToken", "type": "address" },
+          { "internalType": "address", "name": "_usdtToken", "type": "address" },
+          { "internalType": "address", "name": "_sellerWallet", "type": "address" },
+          { "internalType": "address", "name": "_paymentReceiver", "type": "address" },
+          { "internalType": "uint256", "name": "_initialPrice", "type": "uint256" },
+          { "internalType": "uint256", "name": "_minPurchase", "type": "uint256" }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "inputs": [
+          { "internalType": "uint256", "name": "vnsAmount", "type": "uint256" }
+        ],
+        "name": "buyTokens",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      }
+    ];
+    // ======================================================
+
+    let web3, account;
+    let usdtContract, presaleContract;
+
+    async function connectWallet() {
+      if (window.ethereum) {
+        web3 = new Web3(window.ethereum);
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        const accounts = await web3.eth.getAccounts();
+        account = accounts[0];
+        usdtContract = new web3.eth.Contract(usdtAbi, usdtAddress);
+        presaleContract = new web3.eth.Contract(presaleAbi, presaleContractAddress);
+        alert(`✅ Connected: ${account}`);
+      } else {
+        alert("⚠️ MetaMask not found");
+      }
+    }
+
+    async function approveUSDT() {
+      const amount = web3.utils.toWei("1000", "ether"); // Approve large amount
+      try {
+        await usdtContract.methods.approve(presaleContractAddress, amount).send({
+          from: account,
+          gas: 100000
+        });
+        alert("✅ USDT Approved Successfully");
+      } catch (err) {
+        console.error("Approval Failed", err);
+        alert("❌ USDT Approval Failed");
+      }
+    }
+
+    async function buyVNS() {
+      const vnsInput = document.getElementById("vnsAmount").value;
+      const vnsAmount = web3.utils.toWei(vnsInput, "ether");
+
+      try {
+        const tx = await presaleContract.methods.buyTokens(vnsAmount).send({
+          from: account,
+          gas: 300000
+        });
+        console.log("✅ Buy Success:", tx);
+        alert("✅ Buy Successful!");
+      } catch (err) {
+        console.error("❌ Buy Failed", err);
+        alert(`❌ Buy Failed: ${err.message}`);
+      }
+    }
+  </script>
 </body>
 </html>
