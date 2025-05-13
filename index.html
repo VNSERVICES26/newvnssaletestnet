@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>VNS Token Sale</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Buy VNS Token</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>VNS Token Sale</h1>
-
-    <button onclick="connectWallet()">🔗 Connect Wallet</button>
-    <p id="walletAddress">Wallet Not Connected</p>
-
-    <p><b>VNS Token Contract:</b> <span id="tokenAddress">0xYourVNSTokenAddress</span> <button onclick="copyTokenAddress()">📋 Copy</button></p>
+    <h1>🚀 V Network Services</h1>
     
-    <p><b>Seller VNS Balance:</b> <span id="sellerBalance">Loading...</span></p>
-    <p><b>Your USDT Balance:</b> <span id="buyerUsdtBalance">Loading...</span></p>
-    <p><b>Minimum Buy:</b> 10 VNS</p>
-<input type="number" id="buyAmount" placeholder="Enter VNS amount" min="10">
+    <button id="connectWallet">🔌 Wallet Connect</button>
+    <p id="walletStatus">🟡 Wallet Not Connected</p>
 
+    <div class="info">
+      <p><b>USDT Balance:</b> <span id="usdtBalance">-</span></p>
+      <p><b>Seller VNS Balance:</b> <span id="sellerVnsBalance">-</span></p>
+      <p><b>Min Buy:</b> 10 VNS</p>
+    </div>
 
-    <input type="number" id="buyAmount" placeholder="Enter USDT amount" min="1000">
-    <button onclick="approveUSDT()">✅ Approve USDT</button>
-    <button onclick="buyVNS()">💰 Buy VNS</button>
+    <input type="number" id="buyAmount" placeholder="Enter USDT amount to spend"/>
+    <button id="buyBtn">🛒 Buy VNS</button>
+    <p id="buyStatus">💬 Waiting for action...</p>
 
-    <p id="status"></p>
+    <p><b>VNS Contract:</b> 
+      <span id="vnsAddress">0xYourVnsTokenAddress</span>
+      <button onclick="copyAddress()">📋 Copy</button>
+    </p>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
