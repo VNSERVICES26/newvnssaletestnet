@@ -7,24 +7,37 @@ body {
 }
 
 .container {
+  max-width: 500px;
+  margin: auto;
   border: 2px solid gold;
   padding: 20px;
   border-radius: 10px;
-  display: inline-block;
-}
-
-button {
-  background-color: gold;
-  color: black;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  margin: 10px;
-  cursor: pointer;
 }
 
 input {
   padding: 10px;
-  width: 200px;
   margin: 10px;
+  width: 80%;
+  border: 2px solid gold;
+  border-radius: 5px;
+  background-color: #111;
+  color: gold;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: gold;
+  color: black;
+  border: none;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #ffd700;
+}
+
+p {
+  font-size: 16px;
 }
