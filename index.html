@@ -1,42 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>VNS Token Presale</title>
-  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-  <script defer src="script.js"></script>
-  <style>
-    body {
-      background-color: #111;
-      color: gold;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 50px;
-    }
-    input, button {
-      padding: 10px;
-      margin: 10px;
-      font-size: 16px;
-    }
-    button {
-      cursor: pointer;
-      background-color: gold;
-      color: black;
-      border: none;
-    }
-  </style>
+  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
 </head>
 <body>
-  <h1>🚀 VNS Token Presale</h1>
+  <h2>🚀 VNS Token Presale</h2>
+  <button onclick="connectWallet()">🔌 Connect Wallet</button>
+  <p id="walletAddress">Wallet: Not connected</p>
 
-  <button id="connectBtn">🔗 Connect Wallet</button>
   <br><br>
 
-  <label>Enter VNS Amount (Minimum 10 VNS):</label><br>
-  <input type="number" id="vnsAmount" min="10" placeholder="10 or more"><br>
+  <input type="number" id="usdtAmount" placeholder="Enter USDT amount" />
+  <br><br>
+  <button onclick="approveUSDT()">✅ Approve USDT</button>
+  <br><br>
+  <button onclick="buyVNS()">🛒 Buy VNS</button>
 
-  <button id="buyBtn">💸 Buy VNS</button>
-
-  <p id="status"></p>
+  <script src="script.js"></script>
 </body>
 </html>
