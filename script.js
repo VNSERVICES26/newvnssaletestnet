@@ -2,75 +2,76 @@ const usdtAddress = "0x337610d27c682E347C9cD60BD4b3b107C9d34dDd";
 const vnsAddress = "0xD56b19A7A083E64b3f2E41cDD09BaDF2D168D101";
 const presaleAddress = "0x1d696372c231160765ea55294B545451560451b0";
 
-const usdtAbi = [
-  "function approve(address spender, uint256 amount) public returns (bool)",
-  "function allowance(address owner, address spender) public view returns (uint256)",
-  "function decimals() public view returns (uint8)",
-  "function transferFrom(address sender, address recipient, uint amount) public returns (bool)"
+let web3;
+let account;
+let usdtContract;
+let presaleContract;
+
+const usdtABI = [ // only `approve` function
+  {
+    "constant": false,
+    "inputs": [
+      { "name": "spender", "type": "address" },
+      { "name": "amount", "type": "uint256" }
+    ],
+    "name": "approve",
+    "outputs": [{ "name": "", "type": "bool" }],
+    "type": "function"
+  }
 ];
 
-const presaleAbi = [
-  "function buyTokens(uint256 vnsAmount) public",
-  "function pricePerVNS() public view returns (uint256)",
-  "function minPurchase() public view returns (uint256)"
+const presaleABI = [ // only `buyTokens` function
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "usdtAmount", "type": "uint256" }
+    ],
+    "name": "buyTokens",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
 ];
-
-let provider, signer, presaleContract, usdtContract;
-
-document.getElementById("connectBtn").addEventListener("click", connectWallet);
-document.getElementById("buyBtn").addEventListener("click", buyVNS);
 
 async function connectWallet() {
-  if (typeof window.ethereum !== "undefined") {
-    try {
-      provider = new ethers.providers.Web3Provider(window.ethereum);
-      await provider.send("eth_requestAccounts", []);
-      signer = provider.getSigner();
-      presaleContract = new ethers.Contract(presaleAddress, presaleAbi, signer);
-      usdtContract = new ethers.Contract(usdtAddress, usdtAbi, signer);
-      document.getElementById("status").innerText = "✅ Wallet connected!";
-    } catch (err) {
-      document.getElementById("status").innerText = "❌ Connection failed";
-      console.error(err);
-    }
+  if (window.ethereum) {
+    web3 = new Web3(window.ethereum);
+    await window.ethereum.request({ method: "eth_requestAccounts" });
+    const accounts = await web3.eth.getAccounts();
+    account = accounts[0];
+    document.getElementById("walletAddress").innerText = `Wallet: ${account}`;
+    usdtContract = new web3.eth.Contract(usdtABI, usdtAddress);
+    presaleContract = new web3.eth.Contract(presaleABI, presaleAddress);
   } else {
-    alert("🦊 Please install MetaMask");
+    alert("Please install MetaMask");
+  }
+}
+
+async function approveUSDT() {
+  const amount = document.getElementById("usdtAmount").value;
+  if (!amount) return alert("Enter amount");
+  const value = web3.utils.toWei(amount, "ether");
+  try {
+    await usdtContract.methods
+      .approve(presaleAddress, value)
+      .send({ from: account });
+    alert("USDT Approved ✅");
+  } catch (e) {
+    console.error(e);
+    alert("Approval failed ❌");
   }
 }
 
 async function buyVNS() {
-  const input = document.getElementById("vnsAmount");
-  const vnsAmount = parseFloat(input.value);
-
-  if (isNaN(vnsAmount) || vnsAmount < 10) {
-    document.getElementById("status").innerText = "❌ Minimum 10 VNS required";
-    return;
-  }
-
+  const amount = document.getElementById("usdtAmount").value;
+  if (!amount) return alert("Enter amount");
+  const value = web3.utils.toWei(amount, "ether");
   try {
-    const pricePerVNS = await presaleContract.pricePerVNS();
-    const usdtRaw = (vnsAmount * pricePerVNS.toString()) / 1e8;
-
-    const usdtDecimals = await usdtContract.decimals();
-    const usdtAmount = ethers.utils.parseUnits(usdtRaw.toString(), usdtDecimals);
-
-    const userAddress = await signer.getAddress();
-    const currentAllowance = await usdtContract.allowance(userAddress, presaleAddress);
-
-    if (currentAllowance.lt(usdtAmount)) {
-      document.getElementById("status").innerText = "⏳ Approving USDT...";
-      const tx = await usdtContract.approve(presaleAddress, usdtAmount);
-      await tx.wait();
-    }
-
-    document.getElementById("status").innerText = "⏳ Buying VNS tokens...";
-    const vnsBig = ethers.utils.parseUnits(vnsAmount.toString(), 18);
-    const buyTx = await presaleContract.buyTokens(vnsBig);
-    await buyTx.wait();
-
-    document.getElementById("status").innerText = "✅ VNS Purchase Successful!";
-  } catch (err) {
-    console.error(err);
-    document.getElementById("status").innerText = "❌ Error: " + (err?.reason || err.message);
+    await presaleContract.methods
+      .buyTokens(value)
+      .send({ from: account });
+    alert("VNS Purchased 🎉");
+  } catch (e) {
+    console.error(e);
+    alert("Buy failed ❌");
   }
 }
