@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>VNS Token Presale</title>
-  <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
   <script defer src="script.js"></script>
   <style>
     body {
@@ -29,13 +29,13 @@
 <body>
   <h1>🚀 VNS Token Presale</h1>
 
-  <button onclick="connectWallet()">🔗 Connect Wallet</button>
+  <button id="connectBtn">🔗 Connect Wallet</button>
   <br><br>
 
   <label>Enter VNS Amount (Minimum 10 VNS):</label><br>
   <input type="number" id="vnsAmount" min="10" placeholder="10 or more"><br>
 
-  <button onclick="buyVNS()">💸 Buy VNS</button>
+  <button id="buyBtn">💸 Buy VNS</button>
 
   <p id="status"></p>
 </body>
