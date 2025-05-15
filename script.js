@@ -2,14 +2,14 @@ const usdtAddress = "0x337610d27c682E347C9cD60BD4b3b107C9d34dDd";
 const vnsAddress = "0xD56b19A7A083E64b3f2E41cDD09BaDF2D168D101";
 const presaleAddress = "0x1d696372c231160765ea55294B545451560451b0";
 
-const usdtAbi = [{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"_decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"mint","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}
+const usdtAbi = [
   "function approve(address spender, uint256 amount) public returns (bool)",
   "function allowance(address owner, address spender) public view returns (uint256)",
   "function decimals() public view returns (uint8)",
   "function transferFrom(address sender, address recipient, uint amount) public returns (bool)"
 ];
 
-const presaleAbi = [{"inputs":[{"internalType":"address","name":"_vnsToken","type":"address"},{"internalType":"address","name":"_usdtToken","type":"address"},{"internalType":"address","name":"_sellerWallet","type":"address"},{"internalType":"address","name":"_paymentReceiver","type":"address"},{"internalType":"uint256","name":"_initialPrice","type":"uint256"},{"internalType":"uint256","name":"_minPurchase","type":"uint256"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"buyer","type":"address"},{"indexed":false,"internalType":"uint256","name":"vnsAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"usdtAmount","type":"uint256"}],"name":"TokensPurchased","type":"event"},{"inputs":[{"internalType":"uint256","name":"vnsAmount","type":"uint256"}],"name":"buyTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"isPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"minPurchase","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pause","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"paymentReceiver","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pricePerVNS","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"sellerWallet","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"newMin","type":"uint256"}],"name":"setMinPurchase","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newReceiver","type":"address"}],"name":"setPaymentReceiver","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newPrice","type":"uint256"}],"name":"setPrice","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newToken","type":"address"}],"name":"setVnsToken","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"unpause","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"usdtToken","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"vnsToken","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"}
+const presaleAbi = [
   "function buyTokens(uint256 vnsAmount) public",
   "function pricePerVNS() public view returns (uint256)",
   "function minPurchase() public view returns (uint256)"
@@ -17,14 +17,22 @@ const presaleAbi = [{"inputs":[{"internalType":"address","name":"_vnsToken","typ
 
 let provider, signer, presaleContract, usdtContract;
 
+document.getElementById("connectBtn").addEventListener("click", connectWallet);
+document.getElementById("buyBtn").addEventListener("click", buyVNS);
+
 async function connectWallet() {
   if (typeof window.ethereum !== "undefined") {
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    await provider.send("eth_requestAccounts", []);
-    signer = provider.getSigner();
-    presaleContract = new ethers.Contract(presaleAddress, presaleAbi, signer);
-    usdtContract = new ethers.Contract(usdtAddress, usdtAbi, signer);
-    document.getElementById("status").innerText = "✅ Wallet connected!";
+    try {
+      provider = new ethers.providers.Web3Provider(window.ethereum);
+      await provider.send("eth_requestAccounts", []);
+      signer = provider.getSigner();
+      presaleContract = new ethers.Contract(presaleAddress, presaleAbi, signer);
+      usdtContract = new ethers.Contract(usdtAddress, usdtAbi, signer);
+      document.getElementById("status").innerText = "✅ Wallet connected!";
+    } catch (err) {
+      document.getElementById("status").innerText = "❌ Connection failed";
+      console.error(err);
+    }
   } else {
     alert("🦊 Please install MetaMask");
   }
@@ -41,30 +49,28 @@ async function buyVNS() {
 
   try {
     const pricePerVNS = await presaleContract.pricePerVNS();
-    const usdtAmount = ethers.BigNumber.from(Math.floor(vnsAmount * pricePerVNS / 1e8).toString());
+    const usdtRaw = (vnsAmount * pricePerVNS.toString()) / 1e8;
 
-    const decimals = await usdtContract.decimals();
-    const scaledUsdtAmount = usdtAmount.mul(ethers.BigNumber.from("10").pow(decimals));
+    const usdtDecimals = await usdtContract.decimals();
+    const usdtAmount = ethers.utils.parseUnits(usdtRaw.toString(), usdtDecimals);
 
-    // Check USDT allowance
     const userAddress = await signer.getAddress();
-    const allowance = await usdtContract.allowance(userAddress, presaleAddress);
+    const currentAllowance = await usdtContract.allowance(userAddress, presaleAddress);
 
-    if (allowance.lt(scaledUsdtAmount)) {
-      const approveTx = await usdtContract.approve(presaleAddress, scaledUsdtAmount);
+    if (currentAllowance.lt(usdtAmount)) {
       document.getElementById("status").innerText = "⏳ Approving USDT...";
-      await approveTx.wait();
+      const tx = await usdtContract.approve(presaleAddress, usdtAmount);
+      await tx.wait();
     }
 
     document.getElementById("status").innerText = "⏳ Buying VNS tokens...";
-
     const vnsBig = ethers.utils.parseUnits(vnsAmount.toString(), 18);
-    const tx = await presaleContract.buyTokens(vnsBig, { gasLimit: 300000 });
-    await tx.wait();
+    const buyTx = await presaleContract.buyTokens(vnsBig);
+    await buyTx.wait();
 
     document.getElementById("status").innerText = "✅ VNS Purchase Successful!";
   } catch (err) {
     console.error(err);
-    document.getElementById("status").innerText = "❌ Buy Failed: " + (err?.reason || err.message);
+    document.getElementById("status").innerText = "❌ Error: " + (err?.reason || err.message);
   }
 }
