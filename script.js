@@ -1,9 +1,9 @@
-const usdtAddress = "0x337610d27c682E347C9cD60BD4b3b107C9d34dDd";
-const presaleAddress = "0x1d696372c231160765ea55294b545451560451b0";
+// ===== Contract addresses =====
+const usdtAddress = "0x337610d27c682E347C9cD60BD4b3b107C9d34dDd";     // USDT Token
+const vnsPresaleAddress = "0x1d696372c231160765ea55294B545451560451b0"; // Presale Contract
 
-// Simple minimal ABIs with only needed functions (replace with full ABI if available)
+// ===== USDT ABI (Minimal) =====
 const usdtABI = [
-  // approve(address spender, uint256 amount)
   {
     "constant": false,
     "inputs": [
@@ -13,80 +13,85 @@ const usdtABI = [
     "name": "approve",
     "outputs": [{ "name": "", "type": "bool" }],
     "type": "function"
-  }
-];
-
-const presaleABI = [
-  // buyTokens(uint256 amount)
+  },
   {
-    "constant": false,
-    "inputs": [{ "name": "amount", "type": "uint256" }],
-    "name": "buyTokens",
-    "outputs": [],
+    "constant": true,
+    "inputs": [],
+    "name": "decimals",
+    "outputs": [{ "name": "", "type": "uint8" }],
     "type": "function"
   }
 ];
 
-// Provider & signer setup using ethers.js
-let provider;
-let signer;
-let userAddress;
+// ===== Presale Contract ABI (Minimal) =====
+const presaleABI = [
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "buyToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+];
 
+let web3;
+let userAccount;
+
+// ===== Connect Wallet =====
 async function connectWallet() {
-  if (!window.ethereum) {
+  if (window.ethereum) {
+    web3 = new Web3(window.ethereum);
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    const accounts = await web3.eth.getAccounts();
+    userAccount = accounts[0];
+    document.getElementById("status").innerText = "✅ Wallet connected: " + userAccount;
+  } else {
     alert("Please install MetaMask!");
-    return;
-  }
-
-  try {
-    await window.ethereum.request({ method: "eth_requestAccounts" });
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    signer = provider.getSigner();
-    userAddress = await signer.getAddress();
-
-    document.getElementById("walletAddress").innerText = userAddress;
-    console.log("Wallet connected:", userAddress);
-
-    // Enable Buy button only after wallet connect
-    document.getElementById("buyBtn").disabled = false;
-  } catch (err) {
-    console.error("Wallet connection failed:", err);
-    alert("Wallet connection failed!");
   }
 }
 
-async function approveAndBuy() {
+// ===== Approve USDT =====
+async function approveUSDT() {
   try {
-    if (!signer) {
-      alert("Connect your wallet first!");
-      return;
-    }
+    const usdt = new web3.eth.Contract(usdtABI, usdtAddress);
+    const amountInput = document.getElementById("amountInput").value;
+    const decimals = await usdt.methods.decimals().call();
+    const amount = web3.utils.toBN(amountInput).mul(web3.utils.toBN(10).pow(web3.utils.toBN(decimals)));
 
-    const usdtContract = new ethers.Contract(usdtAddress, usdtABI, signer);
-    const presaleContract = new ethers.Contract(presaleAddress, presaleABI, signer);
+    console.log("USDT Approve Amount:", amount.toString());
+    console.log("To Presale Address:", vnsPresaleAddress);
+    console.log("From Wallet:", userAccount);
 
-    // Amount to buy (example: 1 USDT with 18 decimals — check your USDT decimals!)
-    const amountToBuy = ethers.utils.parseUnits("1.0", 18); 
+    document.getElementById("status").innerText = "⏳ Approving USDT...";
+    await usdt.methods.approve(vnsPresaleAddress, amount).send({ from: userAccount });
 
-    console.log("Approving tokens...");
-    const approveTx = await usdtContract.approve(presaleAddress, amountToBuy);
-    console.log("Approve Tx hash:", approveTx.hash);
-    await approveTx.wait();
-    console.log("Approval confirmed");
-
-    console.log("Buying tokens...");
-    const buyTx = await presaleContract.buyTokens(amountToBuy);
-    console.log("Buy Tx hash:", buyTx.hash);
-    await buyTx.wait();
-    console.log("Token purchase confirmed");
-
-    alert("Token purchase successful!");
+    document.getElementById("status").innerText = "✅ USDT Approved!";
   } catch (error) {
-    console.error("Transaction failed:", error);
-    alert("Transaction failed! Check console.");
+    console.error(error);
+    document.getElementById("status").innerText = "❌ Approval Failed";
   }
 }
 
-// Button events
-document.getElementById("connectBtn").onclick = connectWallet;
-document.getElementById("buyBtn").onclick = approveAndBuy;
+// ===== Buy Tokens =====
+async function buyTokens() {
+  try {
+    const presale = new web3.eth.Contract(presaleABI, vnsPresaleAddress);
+    const amountInput = document.getElementById("amountInput").value;
+    const usdt = new web3.eth.Contract(usdtABI, usdtAddress);
+    const decimals = await usdt.methods.decimals().call();
+    const amount = web3.utils.toBN(amountInput).mul(web3.utils.toBN(10).pow(web3.utils.toBN(decimals)));
+
+    console.log("Buying Tokens:", amount.toString());
+    console.log("From Wallet:", userAccount);
+
+    document.getElementById("status").innerText = "⏳ Buying Tokens...";
+    await presale.methods.buyToken(amount).send({ from: userAccount });
+
+    document.getElementById("status").innerText = "✅ VNS Tokens Purchased!";
+  } catch (error) {
+    console.error(error);
+    document.getElementById("status").innerText = "❌ Purchase Failed";
+  }
+}
