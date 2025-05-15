@@ -2,22 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>VNS Token Presale</title>
-  <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Token Presale DApp</title>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
 </head>
 <body>
-  <h2>🚀 VNS Token Presale</h2>
-  <button onclick="connectWallet()">🔌 Connect Wallet</button>
-  <p id="walletAddress">Wallet: Not connected</p>
+  <h2>VNS Token Presale</h2>
 
-  <br><br>
+  <button id="connectBtn">Connect Wallet</button>
+  <button id="buyBtn" disabled>Buy Tokens</button>
 
-  <input type="number" id="usdtAmount" placeholder="Enter USDT amount" />
-  <br><br>
-  <button onclick="approveUSDT()">✅ Approve USDT</button>
-  <br><br>
-  <button onclick="buyVNS()">🛒 Buy VNS</button>
+  <p>Connected Wallet: <span id="walletAddress">Not connected</span></p>
 
   <script src="script.js"></script>
 </body>
