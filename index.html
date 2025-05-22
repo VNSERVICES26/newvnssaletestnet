@@ -1,21 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>VNS Token Presale</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VNST Token Swap</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <h1>VNS Token Presale</h1>
-    <p>Buy VNS with USDT (Testnet)</p>
-    <input type="number" id="vnsAmount" placeholder="Enter VNS Amount" />
-    <button onclick="buyTokens()">Buy Tokens</button>
-    <p id="status"></p>
-  </div>
+    <div class="container">
+        <header>
+            <h1>VNST Token Swap</h1>
+            <button id="connectWalletBtn">Connect Wallet</button>
+        </header>
 
-  <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
-  <script src="script.js"></script>
+        <div class="wallet-info" id="walletInfo">
+            <p>Connected: <span id="walletAddress">Not connected</span></p>
+            <p>Network: <span id="networkName">Unknown</span></p>
+        </div>
+
+        <div class="swap-card">
+            <div class="input-group">
+                <label for="vnstAmount">VNST Amount</label>
+                <div class="input-wrapper">
+                    <input type="number" id="vnstAmount" placeholder="Enter VNST amount">
+                    <button id="pasteVnstBtn">Paste</button>
+                </div>
+                <p class="min-buy">Minimum: 100 VNST</p>
+            </div>
+
+            <div class="info-box">
+                <p>USDT Required: <span id="usdtRequired">0</span> USDT</p>
+                <button id="checkQuoteBtn">Check Quote</button>
+            </div>
+
+            <div class="approval-section">
+                <div class="approval-status">
+                    <p>USDT Approved: <span id="usdtApprovedStatus">No</span></p>
+                    <button id="approveUsdtBtn">Approve USDT</button>
+                </div>
+                <div class="approval-status">
+                    <p>Seller VNST: <span id="sellerVnstBalance">0</span> VNST</p>
+                    <p>Seller Approved: <span id="sellerApprovedStatus">Checking...</span></p>
+                </div>
+            </div>
+
+            <button id="buyVnstBtn" class="buy-btn">BUY VNST TOKENS</button>
+
+            <div class="status-message" id="statusMessage"></div>
+        </div>
+
+        <div class="contract-info">
+            <h3>Contract Information</h3>
+            <p>VNST Price: <span id="vnstPrice">0.09</span> USDT</p>
+            <p>Your Total Purchased: <span id="totalPurchased">0</span> VNST</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
