@@ -1,73 +1,110 @@
+/* style.css */
 :root {
-    --primary-color: #000000;
-    --secondary-color: #FFD700;
-    --background-color: #f5f5f5;
-    --card-color: #ffffff;
-    --text-color: #333333;
-    --error-color: #e74c3c;
-    --success-color: #2ecc71;
+    --gold: #FFD700;
+    --dark-gold: #C5A000;
+    --black: #000000;
+    --dark-gray: #1A1A1A;
+    --medium-gray: #333333;
+    --light-gray: #4D4D4D;
+    --white: #FFFFFF;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Arial', sans-serif;
 }
 
 body {
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6;
+    background-color: var(--black);
+    color: var(--white);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
 }
 
 .container {
-    max-width: 500px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--dark-gray);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
 }
 
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--gold);
 }
 
 h1 {
-    color: var(--primary-color);
-    font-size: 1.5rem;
+    color: var(--gold);
+    font-size: 24px;
 }
 
-#connectWalletBtn {
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
+.gold-btn {
+    background-color: var(--gold);
+    color: var(--black);
     border: none;
-    padding: 8px 15px;
+    padding: 10px 20px;
     border-radius: 5px;
-    font-weight: 600;
+    font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
 }
 
-#connectWalletBtn:hover {
-    opacity: 0.9;
+.gold-btn:hover {
+    background-color: var(--dark-gold);
+    transform: translateY(-2px);
 }
 
-.wallet-info {
-    background-color: var(--card-color);
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    font-size: 0.9rem;
+.gold-btn:disabled {
+    background-color: var(--light-gray);
+    color: var(--medium-gray);
+    cursor: not-allowed;
+    transform: none;
 }
 
-.swap-card {
-    background-color: var(--card-color);
+.gold-btn.small {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.swap-container {
+    background-color: var(--medium-gray);
+    border-radius: 8px;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+}
+
+.info-panel {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: rgba(255, 215, 0, 0.1);
+    border-radius: 5px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0;
+    min-width: 120px;
+}
+
+.info-item span:first-child {
+    color: var(--gold);
+    font-size: 14px;
+    margin-bottom: 5px;
 }
 
 .input-group {
@@ -76,144 +113,118 @@ h1 {
 
 .input-group label {
     display: block;
-    margin-bottom: 5px;
-    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--gold);
 }
 
-.input-wrapper {
-    display: flex;
-    gap: 10px;
-}
-
-.input-wrapper input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-}
-
-.input-wrapper button {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 0 15px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.min-buy {
-    font-size: 0.8rem;
-    color: #666;
-    margin-top: 5px;
-}
-
-.info-box {
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.info-box p {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-#checkQuoteBtn {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
+.input-group input {
     width: 100%;
-}
-
-.approval-section {
-    margin-bottom: 20px;
-}
-
-.approval-status {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-}
-
-#approveUsdtBtn {
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.buy-btn {
-    background-color: var(--secondary-color);
-    color: var(--primary-color);
-    border: none;
     padding: 12px;
     border-radius: 5px;
-    font-weight: 700;
-    font-size: 1.1rem;
-    cursor: pointer;
-    width: 100%;
-    transition: all 0.3s;
+    border: 1px solid var(--light-gray);
+    background-color: var(--dark-gray);
+    color: var(--white);
+    margin-bottom: 10px;
 }
 
-.buy-btn:hover {
-    opacity: 0.9;
-}
-
-.status-message {
-    margin-top: 15px;
-    padding: 10px;
+.quote-result {
+    background-color: rgba(255, 215, 0, 0.1);
+    padding: 15px;
     border-radius: 5px;
+    margin: 15px 0;
+    border: 1px solid var(--gold);
+}
+
+.quote-result p {
+    color: var(--gold);
+    font-weight: bold;
     text-align: center;
-    display: none;
 }
 
-.status-message.success {
-    background-color: rgba(46, 204, 113, 0.2);
-    color: var(--success-color);
-    display: block;
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
 }
 
-.status-message.error {
-    background-color: rgba(231, 76, 60, 0.2);
-    color: var(--error-color);
-    display: block;
+.action-buttons button {
+    flex: 1;
 }
 
 .contract-info {
-    background-color: var(--card-color);
-    padding: 15px;
-    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--light-gray);
 }
 
-.contract-info h3 {
-    margin-bottom: 10px;
-    color: var(--primary-color);
+#vnstContract {
+    font-size: 12px;
+    word-break: break-all;
+    color: var(--gold);
 }
 
-@media (max-width: 480px) {
-    body {
-        padding: 10px;
+#statusMessages {
+    min-height: 50px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    background-color: rgba(255, 215, 0, 0.1);
+}
+
+.status-message {
+    padding: 5px 0;
+    color: var(--gold);
+}
+
+.error-message {
+    color: #FF6B6B;
+}
+
+.success-message {
+    color: #6BFF6B;
+}
+
+.network-selector {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.network-btn {
+    flex: 1;
+    padding: 8px;
+    background-color: var(--medium-gray);
+    border: 1px solid var(--light-gray);
+    color: var(--white);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.network-btn.active {
+    background-color: var(--gold);
+    color: var(--black);
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .info-panel {
+        flex-direction: column;
     }
     
-    h1 {
-        font-size: 1.3rem;
+    .action-buttons {
+        flex-direction: column;
     }
     
-    .swap-card {
-        padding: 15px;
+    header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
     }
 }
