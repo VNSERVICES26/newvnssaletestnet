@@ -1,4 +1,3 @@
-// script.js
 // Contract Configuration
 const CONFIG = {
     testnet: {
@@ -60,7 +59,7 @@ function setupInputListener() {
 
 // Convert human-readable amount to token units (considering decimals)
 function toTokenUnits(amount, decimals = 18) {
-    return web3.utils.toBN(amount).mul(web3.utils.toBN(10).pow(web3.utils.toBN(decimals));
+    return web3.utils.toBN(amount).mul(web3.utils.toBN(10).pow(web3.utils.toBN(decimals)));
 }
 
 // Calculate quote automatically when input changes
