@@ -1,11 +1,4 @@
 const CONFIG = {
-    testnet: {
-        vnstSwapAddress: "0x....",
-        vnstTokenAddress: "0x....", 
-        usdtTokenAddress: "0x....",
-        chainId: "0x61", // BSC Testnet chain ID
-        rpcUrl: "https://data-seed-prebsc-1-s1.binance.org:8545/"
-    },
     mainnet: {
         vnstSwapAddress: "0x8FD96c769308bCf01A1F5E9f93805c552fF80713", 
         vnstTokenAddress: "0xF9Bbb00436B384b57A52D1DfeA8Ca43fC7F11527", 
@@ -19,7 +12,6 @@ let web3;
 let swapContract;
 let vnstToken;
 let usdtToken;
-let currentNetwork = 'testnet';
 let currentAccount = null;
 let minBuyAmount = 0;
 let vnstDecimals = 18; // Assuming VNST has 18 decimals
@@ -37,10 +29,6 @@ async function setupEventListeners() {
     document.getElementById('approveBtn').addEventListener('click', approveUSDT);
     document.getElementById('buyBtn').addEventListener('click', buyVNST);
     document.getElementById('copyContractBtn').addEventListener('click', copyContractAddress);
-    
-    document.querySelectorAll('.network-btn').forEach(btn => {
-        btn.addEventListener('click', switchNetwork);
-    });
 }
 
 function setupInputListener() {
@@ -155,7 +143,7 @@ async function connectWallet() {
 
 async function initContracts() {
     try {
-        const config = CONFIG[currentNetwork];
+        const config = CONFIG.mainnet;
         web3 = new Web3(window.ethereum || config.rpcUrl);
         
         const swapABI = [{"inputs":[{"internalType":"address","name":"_vnstToken","type":"address"},{"internalType":"address","name":"_usdtToken","type":"address"},{"internalType":"address","name":"_sellerWallet","type":"address"},{"internalType":"address","name":"_usdtReceiver","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"buyer","type":"address"},{"indexed":false,"internalType":"uint256","name":"current","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"required","type":"uint256"}],"name":"BuyerAllowanceLow","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newMinBuy","type":"uint256"}],"name":"MinBuyUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"newPrice","type":"uint256"}],"name":"PriceUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"address","name":"newReceiver","type":"address"}],"name":"ReceiverUpdated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"current","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"required","type":"uint256"}],"name":"SellerAllowanceLow","type":"event"},{"anonymous":false,"inputs":[],"name":"SwapPaused","type":"event"},{"anonymous":false,"inputs":[],"name":"SwapResumed","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"buyer","type":"address"},{"indexed":false,"internalType":"uint256","name":"usdtAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"vnstAmount","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"rateUsed","type":"uint256"}],"name":"TokensPurchased","type":"event"},{"stateMutability":"payable","type":"fallback"},{"inputs":[{"internalType":"uint256","name":"vnstAmount","type":"uint256"}],"name":"buyVNST","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"vnstAmount","type":"uint256"}],"name":"calculateUsdtRequired","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"buyer","type":"address"}],"name":"getBuyerAllowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getPricePerVNST","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"vnstAmount","type":"uint256"}],"name":"getQuote","outputs":[{"internalType":"uint256","name":"usdtRequired","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getSellerAllowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getTotalSold","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"buyer","type":"address"}],"name":"isApproved","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"isPaused","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"isSellerApproved","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"minBuy","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pauseSwap","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"resumeSwap","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"uint8","name":"fromDecimals","type":"uint8"},{"internalType":"uint8","name":"toDecimals","type":"uint8"}],"name":"scaleDecimals","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[],"name":"sellerWallet","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"totalPurchased","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSold","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newMinBuy","type":"uint256"}],"name":"updateMinBuy","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"newPrice","type":"uint256"}],"name":"updatePrice","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newReceiver","type":"address"}],"name":"updateReceiver","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"usdtDecimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"usdtReceiver","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"usdtToken","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"vnstDecimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"vnstPrice","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"vnstToken","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"stateMutability":"payable","type":"receive"}];
@@ -200,7 +188,7 @@ async function checkApprovalStatus(vnstAmount) {
         const requiredAllowance = await swapContract.methods.getQuote(vnstAmount).call();
         const currentAllowance = await usdtToken.methods.allowance(
             currentAccount, 
-            CONFIG[currentNetwork].vnstSwapAddress
+            CONFIG.mainnet.vnstSwapAddress
         ).call();
         
         return web3.utils.toBN(currentAllowance).gte(web3.utils.toBN(requiredAllowance));
@@ -229,7 +217,7 @@ async function approveUSDT() {
         
         await handleTransaction(
             usdtToken.methods.approve(
-                CONFIG[currentNetwork].vnstSwapAddress,
+                CONFIG.mainnet.vnstSwapAddress,
                 requiredAllowance
             ).send({ from: currentAccount }),
             'USDT approved successfully!'
@@ -284,31 +272,6 @@ async function handleTransaction(transactionPromise, successMessage) {
         showMessage(successMessage, 'success');
     } catch (error) {
         throw error;
-    }
-}
-
-async function switchNetwork(e) {
-    const network = e.target.dataset.network;
-    if (network === currentNetwork) return;
-    
-    try {
-        showMessage(`Switching to ${network}...`, 'status');
-        
-        await window.ethereum.request({
-            method: 'wallet_switchEthereumChain',
-            params: [{ chainId: CONFIG[network].chainId }],
-        });
-        
-        currentNetwork = network;
-        document.querySelectorAll('.network-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.network === network);
-        });
-        
-        await initContracts();
-        updateUI();
-        showMessage(`Switched to ${network} successfully`, 'success');
-    } catch (error) {
-        showMessage(`Error switching network: ${error.message}`, 'error');
     }
 }
 
