@@ -1,4 +1,3 @@
-// Contract Configuration
 const CONFIG = {
     testnet: {
         vnstSwapAddress: "0x....",
@@ -16,7 +15,6 @@ const CONFIG = {
     }
 };
 
-// Global variables
 let web3;
 let swapContract;
 let vnstToken;
@@ -26,7 +24,6 @@ let currentAccount = null;
 let minBuyAmount = 0;
 let vnstDecimals = 18; // Assuming VNST has 18 decimals
 
-// Initialize application
 window.addEventListener('load', async () => {
     await setupEventListeners();
     await checkWalletConnection();
@@ -35,7 +32,6 @@ window.addEventListener('load', async () => {
     updateUI();
 });
 
-// Setup event listeners
 async function setupEventListeners() {
     document.getElementById('connectWalletBtn').addEventListener('click', connectWallet);
     document.getElementById('approveBtn').addEventListener('click', approveUSDT);
@@ -47,7 +43,6 @@ async function setupEventListeners() {
     });
 }
 
-// Setup input listener for automatic quote calculation
 function setupInputListener() {
     const vnstAmountInput = document.getElementById('vnstAmount');
     vnstAmountInput.addEventListener('input', async () => {
@@ -57,12 +52,10 @@ function setupInputListener() {
     });
 }
 
-// Convert human-readable amount to token units (considering decimals)
 function toTokenUnits(amount, decimals = 18) {
     return web3.utils.toBN(amount).mul(web3.utils.toBN(10).pow(web3.utils.toBN(decimals)));
 }
 
-// Calculate quote automatically when input changes
 async function calculateQuote() {
     try {
         const vnstAmountInput = document.getElementById('vnstAmount').value;
@@ -72,7 +65,6 @@ async function calculateQuote() {
             return;
         }
         
-        // Convert human-readable amount to token units
         const vnstAmount = toTokenUnits(vnstAmountInput);
         const minBuy = web3.utils.toBN(minBuyAmount);
         
@@ -97,7 +89,6 @@ async function calculateQuote() {
     }
 }
 
-// Check wallet connection
 async function checkWalletConnection() {
     if (window.ethereum) {
         try {
@@ -112,7 +103,6 @@ async function checkWalletConnection() {
     }
 }
 
-// Setup wallet event listeners
 function setupWalletEvents() {
     if (window.ethereum) {
         window.ethereum.on('accountsChanged', (accounts) => {
@@ -133,7 +123,6 @@ function setupWalletEvents() {
     }
 }
 
-// Connect wallet
 async function connectWallet() {
     if (!window.ethereum) {
         showMessage('Please install MetaMask or another Web3 wallet', 'error');
@@ -164,7 +153,6 @@ async function connectWallet() {
     }
 }
 
-// Initialize contracts
 async function initContracts() {
     try {
         const config = CONFIG[currentNetwork];
@@ -180,7 +168,6 @@ async function initContracts() {
         minBuyAmount = await swapContract.methods.minBuy().call();
         vnstDecimals = await vnstToken.methods.decimals().call();
         
-        // Display min buy amount in human-readable format
         document.getElementById('minBuyAmount').textContent = formatUnits(minBuyAmount, vnstDecimals) + ' VNST';
         
         await loadContractData();
@@ -189,7 +176,6 @@ async function initContracts() {
     }
 }
 
-// Load contract data
 async function loadContractData() {
     try {
         const price = await swapContract.methods.getPricePerVNST().call();
@@ -205,7 +191,6 @@ async function loadContractData() {
     }
 }
 
-// Check approval status
 async function checkApprovalStatus(vnstAmount) {
     try {
         if (!vnstAmount || web3.utils.toBN(vnstAmount).lt(web3.utils.toBN(minBuyAmount))) {
@@ -225,7 +210,6 @@ async function checkApprovalStatus(vnstAmount) {
     }
 }
 
-// Approve USDT
 async function approveUSDT() {
     try {
         const vnstAmountInput = document.getElementById('vnstAmount').value;
@@ -234,7 +218,6 @@ async function approveUSDT() {
             return;
         }
         
-        // Convert human-readable amount to token units
         const vnstAmount = toTokenUnits(vnstAmountInput);
         
         if (vnstAmount.lt(web3.utils.toBN(minBuyAmount))) {
@@ -263,7 +246,6 @@ async function approveUSDT() {
     }
 }
 
-// Buy VNST
 async function buyVNST() {
     try {
         const vnstAmountInput = document.getElementById('vnstAmount').value;
@@ -272,7 +254,6 @@ async function buyVNST() {
             return;
         }
         
-        // Convert human-readable amount to token units
         const vnstAmount = toTokenUnits(vnstAmountInput);
         
         if (vnstAmount.lt(web3.utils.toBN(minBuyAmount))) {
@@ -296,7 +277,6 @@ async function buyVNST() {
     }
 }
 
-// Handle transactions
 async function handleTransaction(transactionPromise, successMessage) {
     try {
         showMessage('Processing transaction...', 'status');
@@ -307,7 +287,6 @@ async function handleTransaction(transactionPromise, successMessage) {
     }
 }
 
-// Switch network
 async function switchNetwork(e) {
     const network = e.target.dataset.network;
     if (network === currentNetwork) return;
@@ -333,14 +312,12 @@ async function switchNetwork(e) {
     }
 }
 
-// Copy contract address
 function copyContractAddress() {
     const address = document.getElementById('vnstContract').textContent;
     navigator.clipboard.writeText(address);
     showMessage('Contract address copied!', 'success');
 }
 
-// Update UI
 function updateUI() {
     const isConnected = currentAccount !== null;
     document.getElementById('connectWalletBtn').textContent = isConnected ? 'Connected' : 'Connect Wallet';
@@ -350,7 +327,6 @@ function updateUI() {
     document.getElementById('buyBtn').disabled = true;
 }
 
-// Helper functions
 function formatUnits(value, decimals) {
     return (value / 10 ** decimals).toLocaleString(undefined, {
         minimumFractionDigits: 2,
